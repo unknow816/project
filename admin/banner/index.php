@@ -7,7 +7,9 @@
   $sql = "select * from banner";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
-  $banner = $stmt->fetch();
+  $banner = $stmt->fetchAll();
+
+
 
   if(!isset($_SESSION['user'])){
     header('location:'.$adminUrl.'login.php');
@@ -76,17 +78,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="javascript:" data-href="<?= $adminUrl ?>banner/add.php" class="btn btn-success bm" >Add New</a>
                     </th>
                   </tr>
-                  	
+                  <?php foreach ($banner as $b) : ?>
                     <tr>
-                      <td><?= $banner['id'] ?></td>
-                      <td><img width="150" src=" <?= $siteUrl.$banner['image'] ?>" alt=""></td>
-                      <td><?= $banner['detail'] ?></td>
+                      <td><?= $b['id'] ?></td>
+                      <td><img width="150" src=" <?= $siteUrl.$b['image'] ?>" alt=""></td>
+                      <td><?= $b['detail'] ?></td>
                       <td>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/edit.php?id=<?= $banner['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/delete.php?id=<?= $banner['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/edit.php?id=<?= $b['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/delete.php?id=<?= $b['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
                       </td>
                     </tr>                            
-               	
+               	  <?php endforeach ?>
                 </tbody>
               </table>
             </div>

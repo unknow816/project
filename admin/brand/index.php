@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Table Category</h3>
+              <h3 class="box-title">Table Brand</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

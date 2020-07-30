@@ -1,5 +1,4 @@
 <?php 
-	session_start();
 	$path = "";
 
 	require_once '../common/common.php';

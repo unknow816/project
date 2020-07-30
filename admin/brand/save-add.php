@@ -74,6 +74,6 @@
  <h2>ADD Success</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "<?= $adminUrl ?>brand";
+ 		window.location.href = "<?= $adminUrl ?>brand?success=true";
  	},1500);
  </script>

@@ -71,6 +71,6 @@
  <h2>Update Success Loading ....</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "<?= $adminUrl ?>brand";
+ 		window.location.href = "<?= $adminUrl ?>brand?esuccess=true";
  	},1500);
  </script>

@@ -34,10 +34,10 @@
 						</div><!--/category-products-->
 					
 						<div class="brands_products"><!--brands_products-->
-							<h2>Fix to total views</h2>
+							<h2>Brand</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
+									<li><a href="#"> <span class="pull-right">(0)</span>AUTOART</a></li>
 									
 								</ul>
 							</div>

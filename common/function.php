@@ -8,6 +8,15 @@
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
+
+
+	function getdata_by_id($id,$table){
+		global $conn;
+		$sql = "select * from ".$table." where id=$id";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetch();
+	}
 	
 
 	function getname($id,$table){

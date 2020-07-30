@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <div class="form-group">
                   <label>Hotline:*</label>
-                  <input type="text" class="form-control" name="hotlineerror">
+                  <input type="text" class="form-control" name="hotline">
                   <?php if(isset($_GET['hotlineerror'])) : ?>
                     <span class="text-danger"><?= $_GET['hotlineerror'] ?></span>
                   <?php endif ?>

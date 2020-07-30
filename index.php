@@ -30,8 +30,8 @@
 										<div class="productinfo text-center">
 											<a href="" title=""><img src="images/home/Bugatti-Chiron.jpg" alt="" /></a>
 											<h2>650.000 d</h2>
-											<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
+											<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 										
 								</div>
@@ -112,8 +112,8 @@
 												<div class="productinfo text-center">
 													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
 													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
+													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
@@ -124,8 +124,8 @@
 												<div class="productinfo text-center">
 													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
 													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
+													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
@@ -136,8 +136,8 @@
 												<div class="productinfo text-center">
 													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
 													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
+													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
@@ -151,7 +151,7 @@
 													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
 													<h2>650.000 d</h2>
 													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>

@@ -85,8 +85,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <td><?= $web['name'] ?></td>
                       <td><?= $web['email'] ?></td>
                       <td><?= $web['hotline'] ?></td>
-                      <td><img width="150" src=" <?= $siteUrl.$web['map'] ?>" alt=""></td>
-                      <td><img width="150" src=" <?= $siteUrl.$web['logo'] ?>" alt=""></td>
+                      <td><img width="150" src=" <?= $siteUrl.$web['map'] ?>" alt="anh map"></td>
+                      <td><img width="150" src=" <?= $siteUrl.$web['logo'] ?>" alt="anh logo"></td>
                       <td>
                         <a href="javascript:" data-href="<?= $adminUrl ?>setting_web/edit.php?id=<?= $web['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
                         <a href="javascript:" data-href="<?= $adminUrl ?>setting_web/delete.php?id=<?= $web['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>

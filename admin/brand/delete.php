@@ -15,6 +15,6 @@
  <h2>Delete Success Loading.....</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "index.php";
+ 		window.location.href = "<?= $adminUrl ?>brand?dsuccess=true";
  	},1500);
  </script>
