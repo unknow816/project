@@ -6,17 +6,16 @@
 	if(isset($_GET['id'])){
 		$id = $_GET['id'];		
 	}else{
-		header('location:'.$adminUrl.'slideshow');
-		die;
+		header('location:'.$adminUrl.'comment');
 	}
 
-	$sql = "delete from slideshows where id = $id";
+	$sql = "delete from comments where id = $id";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 ?>
  <h2>Delete Success Loading.....</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "<?= $adminUrl ?>slideshow?dsuccess=true";
+ 		window.location.href = "<?= $adminUrl ?>comment?dsuccess=true";
  	},1500);
  </script>

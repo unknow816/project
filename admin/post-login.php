@@ -15,7 +15,7 @@
 	$error = 0;
 
 
-	$sql = "select * from users where email = '$email'";
+	$sql = "select * from users where email = '$email' AND role >= 1 AND status = 0";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$checkuser = $stmt->fetch();

@@ -48,7 +48,7 @@
 
 
 	if($erro == 1){
-		header('location:'.$adminUrl.'brand/edit.php?nameerror='.$nameerror.'&detailerror='.$detailerror.'&imageerror='.$imageerror);
+		header('location:'.$adminUrl.'brand/edit.php?id='.$id.'&nameerror='.$nameerror.'&detailerror='.$detailerror.'&imageerror='.$imageerror);
 		die;
 	}
 

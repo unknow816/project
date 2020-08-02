@@ -56,14 +56,14 @@
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
+								<li><a href="#details" data-toggle="tab">Details</a></li>
+								<li><a href="#companyprofile" data-toggle="tab">Brand Profile</a></li>
 								
-								<li><a href="#reviews" data-toggle="tab">Reviews (0)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (0)</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
-							<div class="tab-pane fade active in" id="details" >
+							<div class="tab-pane fade" id="details" >
 								<div class="row col-sm-10">
 									<span class="tt col-sm-3">Thuong hieu</span>
 									:<span class="nd">Ten thuong hieu</span>
@@ -96,9 +96,9 @@
 							
 					
 							
-							<div class="tab-pane fade " id="reviews" >
+							<div class="tab-pane fade active in" id="reviews" >
 								<div class="col-sm-12">												
-									<form action="#">
+									<form action="#" method="post">
 										<span>
 											<input type="text" placeholder="Your Name"/>
 											<input type="email" placeholder="Email Address"/>
@@ -109,9 +109,27 @@
 											Submit
 										</button>
 									</form>
+
+									<h2>Comments:</h2>
+									<div class="cm">
+										<div class="row">
+											<div class="anh col-sm-2">
+												<img src="images/default.jpg" alt="" class="av ">
+											</div>
+											<div class="nd col-sm-10">
+											   <span class="tieude">Name</span>
+											   <span class="gou">Guest or user</span>
+											   <span class="time"><?= date("m/d/Y"); ?></span>
+											   <p>Noi dung binh luan</p>
+											</div>
+										</div>
+
+
+									</div>
+
 								</div>
 							</div>
-							
+							<!-- end tab-pane fade id reviews -->
 						</div>
 					</div><!--/category-tab-->
 					

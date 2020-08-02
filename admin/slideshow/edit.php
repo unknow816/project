@@ -4,6 +4,10 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
+  if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $slide = getdata_by_id($id,'slideshows');
+  }
 
  ?>
 
@@ -51,11 +55,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
 
         <div class="row">
-          <form action="save-add.php" method="post" enctype="multipart/form-data">
+          <form action="save-edit.php" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="<?= $slide['id'] ?>">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Name:*</label>
-                  <input type="text" name="name" class="form-control">
+                  <input type="text" name="name" class="form-control" value="<?= $slide['name'] ?>">
                   <?php if(isset($_GET['nameerror'])): ?>
                     <span class="text-danger"><?= $_GET['nameerror'] ?></span>
                   <?php endif ?>
@@ -64,21 +69,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-group">
                   <label>Image:*</label>
                   <input type="file" name="image">
-                  <?php if(isset($_GET['imageerror'])): ?>
-                    <span class="text-danger"><?= $_GET['imageerror'] ?></span>
+                </div>
+
+                <div class="form-group">
+                  <label>Detail:*</label>
+                  <textarea name="detail" class="form-control" rows="4"><?= $slide['detail'] ?></textarea>
+                  <?php if(isset($_GET['detailerror'])): ?>
+                    <span class="text-danger"><?= $_GET['detailerror'] ?></span>
                   <?php endif ?>
                 </div>
 
                 <div class="form-group">
-                  <label>Detail:</label>
-                  <textarea name="detail" class="form-control" rows="4"></textarea>
+                  <label>Order_num:*</label>
+                  <input type="text" name="order_num" class="form-control" value="<?= $slide['order_num'] ?>">
+                  <?php if(isset($_GET['order_numerror'])): ?>
+                    <span class="text-danger"><?= $_GET['order_numerror'] ?></span>
+                  <?php endif ?>
                 </div>
 
                 <div class="form-group">
-                  <label>Order_num:*</label>
-                  <input type="text" name="order_num" class="form-control">
-                  <?php if(isset($_GET['order_numerror'])): ?>
-                    <span class="text-danger"><?= $_GET['order_numerror'] ?></span>
+                  <label>Status:*</label>
+                  <select name="status" class="form-control">
+                    <option value=""></option>
+                    <option <?php if($slide['status'] == 0) echo "selected" ?> value="0">active</option>
+                    <option <?php if($slide['status'] == 1) echo "selected" ?> value="1">inactive</option>
+                  </select>
+                  <?php if(isset($_GET['statuserror'])) : ?>
+                    <span class="text-danger"><?= $_GET['statuserror'] ?></span>
                   <?php endif ?>
                 </div>
 

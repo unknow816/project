@@ -4,12 +4,7 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
-  $sql = "select * from banner";
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $banner = $stmt->fetchAll();
-
-
+  $orders = getdata('orders');
 
   if(!isset($_SESSION['user'])){
     header('location:'.$adminUrl.'login.php');
@@ -27,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin Banner</title>
+  <title>Admin Order</title>
   <!-- Tell the browser to be responsive to screen width -->
   <?php 
 
@@ -64,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Table banner</h3>
+              <h3 class="box-title">Table Oder</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -72,25 +67,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th>ID</th>
-                    <th>Image</th>
-                    <th>Detail</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Total_product</th>
+                    <th>Total_price</th>
                     <th>Status</th>
-                    <th>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/add.php" class="btn btn-success bm" >Add New</a>
-                    </th>
+                    <th>Created_at</th>
+
                   </tr>
-                  <?php foreach ($banner as $b) : ?>
+                  	<?php foreach ($orders as $o) { ?>
                     <tr>
-                      <td><?= $b['id'] ?></td>
-                      <td><img width="150" src=" <?= $siteUrl.$b['image'] ?>" alt=""></td>
-                      <td><?= $b['detail'] ?></td>
-                       <td><?= $b['status'] == 0 ? "Active" : "Inactive" ?></td>
+                      <td><?= $o['id'] ?></td>
+                      <td><?= $o['name'] ?></td>
+                      <td><?= $o['email'] ?></td>
+                      <td><?= $o['phone'] ?></td>
+                      <td><?= $o['address'] ?></td>
+                      <td><?= $o['total_product'] ?></td>
+                      <td><?= $o['total_price'] ?></td>
+                      <td><form action="save.php" method="post" accept-charset="utf-8">
+                      		<input type="hidden" name="id" value="<?= $o['id'] ?>">
+                      		<select name="status" class="form-control">
+                      			<option <?php if($o['status'] == 0) echo "selected" ?> value="0">Đang xử lý...</option>
+                      			<option <?php if($o['status'] == 1) echo "selected" ?>  value="1">Hoàn thành</option>
+                      		</select>
+                      		<button type="submit" class="btn btn-primary">Cập nhật</button>
+                      	  </form>
+                      </td>
+                      <td><?= $o['created_at'] ?></td>
                       <td>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/edit.php?id=<?= $b['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/delete.php?id=<?= $b['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>order/delete.php?id=<?= $o['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
                       </td>
                     </tr>                            
-               	  <?php endforeach ?>
+               		<?php } ?>
                 </tbody>
               </table>
             </div>

@@ -4,10 +4,8 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
-  // $sql = "select * from web_setting";
-  // $stmt = $conn->prepare($sql);
-  // $stmt->execute();
-  // $web = $stmt->fetch();
+
+  $slides = getdata('slideshows');
 
   if(!isset($_SESSION['user'])){
     header('location:'.$adminUrl.'login.php');
@@ -74,25 +72,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Image</th>
                     <th>Detail</th>
                     <th>Order_num</th>
-         	
+         	          <th>Status</th>
                     <th>
                         <a href="javascript:" data-href="<?= $adminUrl ?>slideshow/add.php" class="btn btn-success bm" >Add New</a>
                     </th>
                   </tr>
-                  	
+                  	<?php foreach ($slides as $s) : ?>
                     <tr>
-                      <td>0</td>
-                      <td>name</td>
-                      <td><img width="150" src=" " alt="anh slide"></td>
-                      <td>detail</td>
-                      <td>order_numr</td>
+                      <td><?= $s['id'] ?></td>
+                      <td><?= $s['name'] ?></td>
+                      <td><img width="150" src="<?= $siteUrl.$s['image'] ?> " alt="anh slide"></td>
+                      <td><?=  substr($s['detail'],0,50)."..." ?></td>
+                      <td><?= $s['order_num'] ?></td>
+                      <td><?= $s['status'] == 0 ? "Active" : "Inactive" ?></td>
                       
                       <td>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>slideshow/edit.php?id=0" title="" class="btn btn-primary bm">Edit</a>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>slideshow/delete.php?id=0" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>slideshow/edit.php?id=<?= $s['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>slideshow/delete.php?id=<?= $s['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
                       </td>
                     </tr>                            
-               	
+               	    <?php endforeach ?>
                 </tbody>
               </table>
             </div>

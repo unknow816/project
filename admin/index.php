@@ -18,6 +18,12 @@
   $brands = getdata('brands');
 
   $users = getdata('users');
+
+  $slideshows = getdata('slideshows');
+
+  $comments = getdata('comments');
+
+  $orders = getdata('orders');
  
 
 
@@ -130,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- small box -->
             <div class="small-box bg-blue">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= count($slideshows) ?></h3>
 
                 <p>Slide Show</p>
               </div>
@@ -145,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= count($comments) ?></h3>
 
                 <p>Comment</p>
               </div>
@@ -160,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= count($orders) ?></h3>
 
                 <p>Order</p>
               </div>

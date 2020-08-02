@@ -4,12 +4,7 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
-  $sql = "select * from banner";
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $banner = $stmt->fetchAll();
-
-
+  $comments = getdata('comments');
 
   if(!isset($_SESSION['user'])){
     header('location:'.$adminUrl.'login.php');
@@ -27,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin Banner</title>
+  <title>Admin Comment</title>
   <!-- Tell the browser to be responsive to screen width -->
   <?php 
 
@@ -64,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Table banner</h3>
+              <h3 class="box-title">Table Comment</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -72,25 +67,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th>ID</th>
-                    <th>Image</th>
-                    <th>Detail</th>
-                    <th>Status</th>
-                    <th>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/add.php" class="btn btn-success bm" >Add New</a>
-                    </th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Content</th>
+                    <th>Pro_id</th>
                   </tr>
-                  <?php foreach ($banner as $b) : ?>
+                  	<?php foreach ($comments as $c) { ?>
                     <tr>
-                      <td><?= $b['id'] ?></td>
-                      <td><img width="150" src=" <?= $siteUrl.$b['image'] ?>" alt=""></td>
-                      <td><?= $b['detail'] ?></td>
-                       <td><?= $b['status'] == 0 ? "Active" : "Inactive" ?></td>
+                      <td><?= $c['id'] ?></td>
+                      <td><?= $c['name'] ?></td>
+                      <td><?= $c['email'] ?></td>
+                      <td><?= $c['content'] ?></td>
+                      <td><?= $c['pro_id'] ?></td>
                       <td>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/edit.php?id=<?= $b['id'] ?>" title="" class="btn btn-primary bm">Edit</a>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>banner/delete.php?id=<?= $b['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>comment/delete.php?id=<?= $c['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
                       </td>
                     </tr>                            
-               	  <?php endforeach ?>
+               		<?php } ?>
                 </tbody>
               </table>
             </div>

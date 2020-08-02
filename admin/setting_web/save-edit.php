@@ -51,7 +51,7 @@
 
 
 	if($erro == 1){
-		header('location:'.$adminUrl.'setting_web/edit.php?id=$id&nameerror='.$nameerror.'&emailerror='.$emailerror.'&hotlineerror='.$hotlineerror);
+		header('location:'.$adminUrl.'setting_web/edit.php?id='.$id.'&nameerror='.$nameerror.'&emailerror='.$emailerror.'&hotlineerror='.$hotlineerror);
 	}
 
 	
@@ -61,13 +61,13 @@
   							  hotline = $hotline";
 
     if($map['size'] > 0){
-		$filename1 = 'images/setting_web/update' . uniqid() . "-" . $map['name'];
+		$filename1 = 'images/setting_web/update/' . uniqid() . "-" . $map['name'];
 		move_uploaded_file($map['tmp_name'], '../../'.$filename1);
 		$sql .= ",map = '$filename1'";
 	}
 
 	if($logo['size'] > 0){
-		$filename2 = 'images/setting_web/update' . uniqid() . "-" . $logo['name'];
+		$filename2 = 'images/setting_web/update/' . uniqid() . "-" . $logo['name'];
 		move_uploaded_file($logo['tmp_name'], '../../'.$filename2);
 		$sql .= ",logo = '$filename2'";
 	}

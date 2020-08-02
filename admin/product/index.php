@@ -93,13 +93,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <tr>
                       <td><?= $p['id'] ?></td>
                       <td><?= $p['name'] ?></td>
-                      <td><?= $p['price'] ?></td>
+                      <td><?= number_format($p['price'],0,"",",")."đ" ?></td>
                       <td><?= getname($p['brand_id'],'brands') ?></td>
                       <td><?= getname($p['cate_id'],'categories') ?></td>
                       <td>
                         <img src="<?= $siteUrl.$p['image'] ?>" width = '70' alt="chua co anh">
                       </td>
-                      <td><?= $p['detail'] ?></td>
+                      <td><?= substr($p['detail'],0,49)."..." ?></td>
                       <td><?= $p['status'] == 0 ? "Active" : "Inactive" ?></td>
                       <td><?= $p['created_at'] ?></td>
                       <td>

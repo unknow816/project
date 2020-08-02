@@ -30,3 +30,32 @@
 	text-decoration: none;
 	font-size: 19px;
 }
+#reviews .cm{
+	background: #f0f0e9;
+	overflow: auto;
+	height: 300px;
+	padding: 15px 0;
+}
+.cm .tieude{
+	font-size: 21px;
+	font-weight: bold;
+}
+.cm .gou{
+	padding: 2px 2px;
+	font-size: 15px;
+	color: #428bca;
+	border: 1px solid #428bca;
+	border-radius: 5px;
+	margin: 0px 7px;
+}
+.cm .anh{
+	width: 100px;
+	height: 100px;
+}
+.anh .av{
+	width: 100%;
+}
+.cm .nd{
+	padding: 9px 12px;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+} 

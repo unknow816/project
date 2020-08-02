@@ -70,8 +70,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
                 <div class="form-group">
-                  <label>Detail:</label>
+                  <label>Detail:*</label>
                   <textarea name="detail" class="form-control" rows="4"></textarea>
+                  <?php if(isset($_GET['detailerror'])): ?>
+                    <span class="text-danger"><?= $_GET['detailerror'] ?></span>
+                  <?php endif ?>
                 </div>
 
                 <div class="form-group">
@@ -79,6 +82,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="text" name="order_num" class="form-control">
                   <?php if(isset($_GET['order_numerror'])): ?>
                     <span class="text-danger"><?= $_GET['order_numerror'] ?></span>
+                  <?php endif ?>
+                </div>
+
+                <div class="form-group">
+                  <label>Status:*</label>
+                  <select name="status" class="form-control">
+                    <option value=""></option>
+                    <option value="0">active</option>
+                    <option value="1">inactive</option>
+                  </select>
+                  <?php if(isset($_GET['statuserror'])) : ?>
+                    <span class="text-danger"><?= $_GET['statuserror'] ?></span>
                   <?php endif ?>
                 </div>
 
