@@ -849,7 +849,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  margin: 0 15px;
+  margin: 7px 15px;
   text-transform: uppercase;
   margin-bottom: 30px;
   position: relative;
@@ -1216,7 +1216,7 @@ h2.title {
   margin-top: 18px;
 }
 
-.product-information span span {
+.product-information .price{
   color: #428bca;
   float: left;
   font-family: 'Roboto', sans-serif;

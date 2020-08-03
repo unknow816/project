@@ -1,5 +1,22 @@
 <?php 
 
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+
+	$products = limitdata('products',0,6);
+
+	$brands = getdata('brands');
+
+	$sql = "select * from products limit 0,3";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$rproducts = $stmt->fetchAll();
+
+	$sql = "select * from products limit 3,3";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$rproducts2 = $stmt->fetchAll();
 
 
  ?>
@@ -30,164 +47,117 @@
 				
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-										<div class="productinfo text-center">
-											<a href="" title=""><img src="images/home/Bugatti-Chiron.jpg" alt="" /></a>
-											<h2>650.000 d</h2>
-											<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-											<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-										
+						<h2 class="title text-center">Sản phẩm mới</h2>
+						   <?php foreach ($products as $p) { ?>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+											<div class="productinfo text-center">
+												<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+													<img src="<?= $siteUrl.$p['image'] ?>" alt="" class="img-thumbnail" />
+												</a>
+												<h2><?= number_format($p['price'],0,"",",")." đ" ?></h2>
+												<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+													<?= $p['name'] ?>												
+												</a>
+												<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
+												<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+									</div>
+									
 								</div>
-								
 							</div>
-						</div>
-						
+						   <?php } ?>
 						
 					</div><!--features_items-->
 					
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#autoart" data-toggle="tab">AUTOART</a></li>
-								<li><a href="#bburago" data-toggle="tab">BBurago </a></li>
-								<li><a href="#gtspirit" data-toggle="tab">GTSpirit</a></li>
-								<li><a href="#frontiart-model" data-toggle="tab">Frontiart-Model</a></li>
+						<!-- Lặp vòng foreach với điều kiện là hiển thị tên class là active để trên giao diện-->
+							   <?php 
+							   		$count = 0;
+							   		foreach ($brands as $b) {							   			
+							   			$activeb = $count == 0 ? "active" : "";
+							   	?>
+								<li class="<?= $activeb ?>"><a href="<?="#".strtolower(trim($b['name']))?>" data-toggle="tab"><?=strtoupper($b['name']) ?></a></li>
+								
+							   <?php 
+							   		$count++;
+								} ?>
 							</ul>
 						</div>
 						<div class="tab-content">
-							<div class="tab-pane fade active in" id="autoart" >
+							<?php 
+								$count = 0;
+								foreach ($brands as $b) { 
+									$activei = $count == 0 ? "active in" : "";
+							?>
+							<div class="tab-pane fade <?= $activei ?>" id="<?=strtolower(trim($b['name'])) ?>" >
 								<div class="col-sm-12">
 									<div class="col-sm-4 text-center">
-										<img src="images/brand/autoart.png" width="150" alt="">
+										<img src="<?= $siteUrl.$b['image'] ?>" width="150" alt="">
 									</div>
 									<div class="col-sm-8">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<p><?= $b['detail'] ?></p>
 									</div>
 								</div>														
 							</div>
-							
-							<div class="tab-pane fade" id="bburago" >
-								<div class="col-sm-12">
-									<div class="col-sm-4 text-center">
-										<img src="images/brand/bburago.png" width="150" alt="">
-									</div>
-									<div class="col-sm-8">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									</div>
-								</div>
-								
-							</div>
-							
-							<div class="tab-pane fade" id="gtspirit" >
-								<div class="col-sm-12">
-									<div class="col-sm-4 text-center">
-										<img src="images/brand/gtspirit.png" width="150" alt="">
-									</div>
-									<div class="col-sm-8">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									</div>
-								</div>
-							</div>
-							
-							<div class="tab-pane fade" id="frontiart-model" >
-								<div class="col-sm-12">
-									<div class="col-sm-4 text-center">
-										<img src="images/brand/frontiart.jpg" width="150" alt="">
-									</div>
-									<div class="col-sm-8">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									</div>
-								</div>
-								
-							</div>
+							<?php 
+								$count++;
+							} 
+							?>
+
 						</div>
 					</div><!--/category-tab-->
 					
 					<div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">recommended items</h2>
+						<h2 class="title text-center">Sản phẩm mua nhiều</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">	
+								  <?php foreach ($rproducts as $rp) { ?>
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="product-detail.php?id=<?= $rp['id'] ?>" title="">
+													<img src="<?= $siteUrl.$rp['image'] ?>" alt="" class="img-thumbnail" />
+													</a>
+													<h2><?= number_format($rp['price'],0,"",",")." đ" ?></h2>
+													<a href="product-detail.php?id=<?= $rp['id'] ?>" title="">
+														<?= $rp['name'] ?>												
+													</a>
+													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($rp['brand_id'],'brands') ?> </span></p>
+													<a href="cart.php?id=<?= $rp['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="product-detail.php" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									
+								  	<?php } ?>									
 								</div>
 								<div class="item">	
+									<?php foreach ($rproducts2 as $rp) { ?>
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<a href="cart.php" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="product-detail.php?id=<?= $rp['id'] ?>" title="">
+													<img src="<?= $siteUrl.$rp['image'] ?>" alt="" class="img-thumbnail" />
+													</a>
+													<h2><?= number_format($rp['price'],0,"",",")." đ" ?></h2>
+													<a href="product-detail.php?id=<?= $rp['id'] ?>" title="">
+														<?= $rp['name'] ?>												
+													</a>
+													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($rp['brand_id'],'brands') ?> </span></p>
+													<a href="cart.php?id=<?= $rp['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
+								  	<?php } ?>	
 								</div>
 							</div>
 							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">

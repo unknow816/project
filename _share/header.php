@@ -1,18 +1,31 @@
-<header id="header"><!--header-->
-	
-		
+<?php 
+
+	$sql = "select * from web_setting";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$web = $stmt->fetch();
+
+	$cates = getdata('categories');
+
+
+ ?>
+
+<header id="header"><!--header-->	
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="images/home/logoshop.png" alt="" /></a>		
+							<a href="<?= $siteUrl ?>index.php"><img src="<?= $siteUrl.$web['logo'] ?>" alt="" /></a>		
 						</div>
 						
 					</div>
 					<div class="col-sm-8">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<form action="<?= $siteUrl ?>shop.php" method="get" accept-charset="utf-8">
+								<input type="text" placeholder="Search" name="search">
+								<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+							</form>
 
 						</div>
 					</div>
@@ -28,11 +41,18 @@
 						
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.php" class="active">Home</a></li>
+								<li><a href="<?= $siteUrl ?>index.php" class="active">Trang chủ</a></li>
 								
-								<li><a href="shop.php">Product</a></li>
+								<li class="dropdown"><a href="<?= $siteUrl ?>shop.php">Sản phẩm
+									<i class="fa fa-angle-down"></i></a>
+									 <ul role="menu" class="sub-menu">
+									   <?php foreach ($cates as $c) { ?>
+                                        <li><a href="<?= $siteUrl ?>shop.php?cate_id=<?= $c['id'] ?>"><?= $c['name'] ?></a></li>
+                                       <?php } ?>
+                                    </ul>
+								</li>
 								
-								<li><a href="contact.php">Contact</a></li>
+								<li><a href="<?= $siteUrl ?>contact.php">Liên hệ</a></li>
 
 							</ul>
 						</div>
@@ -41,19 +61,21 @@
 					
 						<div class="mainmenu pull-right">
 							<ul class="nav navbar-nav ">
-								
-                                <li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart (0)</a></li> 
-								<li><a href="register.php"><i class="fa fa-user"></i> Register</a></li>
-								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="<?= $siteUrl ?>cart.php"><i class="fa fa-shopping-cart"></i> Giỏ hàng (0)</a></li> 
+							  <?php if(!isset($_SESSION['cuser'])) { ?>
+								<li><a href="<?= $siteUrl ?>register.php"><i class="fa fa-user"></i> Đăng ký</a></li>
+								<li><a href="<?= $siteUrl ?>login.php"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+							  <?php }else { ?>
 								<li class="dropdown"><a href="#">Xin chao
 									<img class="img" src="images/home/banner.jpg">
 								<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="account.php">Setting Account</a></li>
-										<li><a href="history.php">History Order</a></li> 
-										<li><a href="logout.php">Logout</a></li> 
+                                        <li><a href="<?= $siteUrl ?>account.php">Cập nhật thông tin</a></li>
+										<li><a href="<?= $siteUrl ?>history.php">Lịch sử giao dịch</a></li> 
+										<li><a href="<?= $siteUrl ?>logout.php">Đăng xuất</a></li> 
                                     </ul>
                                 </li> 
+                               <?php } ?>
 							</ul>
 						</div>
 					</div>

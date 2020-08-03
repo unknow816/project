@@ -1,64 +1,59 @@
-	<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>F</span>-shop</h1>
-									<h2>Sua noi dung</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/sp1.jpg" class="girl img-thumbnail" alt="" />
-									
-								</div>
+<?php 
+
+	$sql = "select * from slideshows order by order_num and status = 0";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$slides = $stmt->fetchAll();
+
+?>
+
+<section id="slider"><!--slider-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+					  <!-- Lặp vòng for với điều kiện là hiển thị tên class là active -->
+					  <?php for ($i=0; $i < count($slides); $i++) { 
+					  		$act = $i == 0 ? "active" : "";
+					   ?>
+						<li data-target="#slider-carousel" data-slide-to="$i" class="<?= $act ?>"></li>
+					  <?php } ?>
+					</ol>
+
+					<div class="carousel-inner">
+					   <?php $count = 0 ?>
+					   <?php foreach ($slides as $s) { 
+					   		$active = $count == 0 ? "active" : "";
+					   	?>
+						<div class="item <?= $active ?>">
+							<div class="col-sm-6">
+								<h1><span>F</span>-shop</h1>
+								<h2><?= $s['name'] ?></h2>
+								<p><?= $s['detail']?></p>
+								<a href="<?= $siteUrl ?>shop.php" class="btn btn-default get"title="">Xem thêm..</a>
 							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>F</span>-shop</h1>
-									<h2>Sua noi dung</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/sp2.jpg" class="girl img-thumbnail" alt="" />
-									
-								</div>
+							<div class="col-sm-6">
+								<img src="<?=$siteUrl.$s['image'] ?>" class="girl img-thumbnail" alt="" />
+
 							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>F</span>-shop</h1>
-									<h2>Sua noi dung</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/sp3.jpg" class="girl img-thumbnail" alt="" />
-									
-								</div>
-							</div>
-							
 						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
+					   <?php $count++; ?>
+					   <?php } ?>
+						<!-- end item -->
+			
+
 					</div>
-					
+
+					<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+						<i class="fa fa-angle-left"></i>
+					</a>
+					<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					</a>
 				</div>
+
 			</div>
 		</div>
+	</div>
 	</section><!--/slider-->

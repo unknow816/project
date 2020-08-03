@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$sql = "select * from products where id = $id";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$product = $stmt->fetch();
+	}
+
+	$comments = getdatadesc('comments',$id,'id');
+
+
+	$cate_id = $product['cate_id'];
+	$sql = "select * from products where cate_id = $cate_id limit 0,3";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$ps = $stmt->fetchAll();
+
+	$sql = "select * from products where cate_id = $cate_id limit 3,3";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$ps2 = $stmt->fetchAll();
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -24,7 +51,7 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="images/home/Bugatti-Chiron.jpg"  alt="" />
+								<img src="<?= $siteUrl.$product['image'] ?>"  alt="" />
 								
 							</div>
 							
@@ -33,21 +60,22 @@
 						<div class="col-sm-7">
 							<div class="product-information" ><!--/product-information-->
 								
-								<h2>Bugatti-Chiron tỉ lệ 1:12</h2>
-								<p>Product ID: 1089772</p>
-								
-								<span>
-									<span>650.000 d</span>
-									<label>Quantity:</label>
-									<input type="text" value="0" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Add to cart
-									</button>
-								</span>
-								<p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p>
+								<h2><?= $product['name'] ?></h2>
+								<p>Product ID: <?= $product['id'] ?></p>
+									<span class="price"><?= number_format($product['price'],0,"",",") ?> đ</span>
+									<div class="cart_quantity_button">
+										<form style="margin:60px auto;display: flex" id="form" action="" method="get" accept-charset="utf-8">					
+											<span class="up" onclick="increase(+1)">+</span>
+											<input class="cart_quantity_input" type="text" name="quantity_input" value="1" size="2">
+											<span class="down" onclick="decrease(1)">-</span>
+											<button type="button" class="btn btn-fefault cart">
+												<i class="fa fa-shopping-cart"></i>
+												Add to cart
+											</button>										
+										</form>
+									</div>										
+								<p><b>Tình trạng:</b> <?= $product['status'] == 0 ? "Còn hàng" : "Tạm hết"  ?></p>								
+								<p><b>Thương hiệu:</b> <span style="font-size: 20px;"><?= getname($product['brand_id'],'brands') ?></span></p>
 								
 							</div><!--/product-information-->
 						</div>
@@ -56,74 +84,93 @@
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<li><a href="#details" data-toggle="tab">Details</a></li>
-								<li><a href="#companyprofile" data-toggle="tab">Brand Profile</a></li>
+								<li><a href="#details" data-toggle="tab">Mô tả</a></li>
+								<li><a href="#companyprofile" data-toggle="tab">Thông tin chi tiết</a></li>
 								
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (0)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Bình luận (<?= count($comments) ?>)</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade" id="details" >
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Thuong hieu</span>
-									:<span class="nd">Ten thuong hieu</span>
+								<div class="row col-sm-12">
+									<span class="tt col-sm-3">Tỉ lệ</span>
+									:<span class="nd"><?= getname($product['cate_id'],'categories') ?></span>
 								</div>
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Ti le</span>
-									:<span class="nd">Ti le san pham</span>
+								<div class="row col-sm-12">
+									<span class="tt col-sm-3">Kích thước</span>
+									:<span class="nd"><?= $product['size'] ?></span>
 								</div>
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Chat lieu</span>
-									:<span class="nd">Chat lieu san pham</span>
+								<div class="row col-sm-12">
+									<span class="tt col-sm-3">Chức năng</span>
+									:<span class="nd"><?= $product['function'] ?></span>
 								</div>
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Kich thuoc</span>
-									:<span class="nd">Kich thuoc san pham</span>
-								</div>
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Chuc nang</span>
-									:<span class="nd">Chuc nang san pham</span>
-								</div>
-								<div class="row col-sm-10">
-									<span class="tt col-sm-3">Bao bi</span>
-									:<span class="nd">Bao bi san pham</span>
+								<div class="row col-sm-12">
+									<span class="tt col-sm-3">Bao bì</span>
+									:<span class="nd"><?= $product['package'] ?></span>
 								</div>
 							</div>
 							
-							<div class="tab-pane fade" id="companyprofile" >
-								thong tin company
+							<div class="tab-pane fade text-center" id="companyprofile" >
+								<p><?php if(strlen($product['detail']) == 0)
+								{ ?>
+									<span style="font-size: 25px;">Chưa có thông tin</span>
+								<?php 
+									} else{ echo $product['detail'];};
+								?>
+								 </p>
 							</div>
 							
 					
 							
 							<div class="tab-pane fade active in" id="reviews" >
 								<div class="col-sm-12">												
-									<form action="#" method="post">
+									<form action="<?= $siteUrl ?>submit-comment.php" method="post">
+										<input type="hidden" name="pro_id" value="<?= $id ?>">
 										<span>
-											<input type="text" placeholder="Your Name"/>
-											<input type="email" placeholder="Email Address"/>
+														
+											<input type="text" name="name" placeholder="Your Name"/>
+
+											<input type="text" name="email" placeholder="Email Address"/>
+											<?php if(isset($_GET['nameerror'])) : ?>
+												<span class="text-danger"><?= $_GET['nameerror'] ?></span>
+											<?php endif ?>
+											<?php if(isset($_GET['emailerror'])) : ?>
+												<span class="text-danger"><?= $_GET['emailerror'] ?></span>
+											<?php endif ?>
+											
 										</span>
-										<textarea name="" placeholder="Your messages"></textarea>
-										
-										<button type="button" class="btn btn-default pull-right">
+										<textarea name="content" placeholder="Your messages"></textarea>
+										<?php if(isset($_GET['contenterror'])) : ?>
+											<span class="text-danger"><?= $_GET['contenterror'] ?></span>
+										<?php endif ?>
+										<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">
+										<button type="submit" class="btn btn-default pull-right">
 											Submit
 										</button>
 									</form>
 
 									<h2>Comments:</h2>
 									<div class="cm">
+										<?php foreach ($comments as $c) { ?>
 										<div class="row">
 											<div class="anh col-sm-2">
 												<img src="images/default.jpg" alt="" class="av ">
 											</div>
 											<div class="nd col-sm-10">
-											   <span class="tieude">Name</span>
-											   <span class="gou">Guest or user</span>
-											   <span class="time"><?= date("m/d/Y"); ?></span>
-											   <p>Noi dung binh luan</p>
+											   <span class="tieude"><?= $c['name'] ?></span>
+											   <span class="gou"><?php 
+											   		if(check('users','email',$c['email']) == true){
+											   			echo "Thành viên";
+											   		}else{
+											   			echo "Khách";
+											   		}
+
+											    ?></span>
+											   <span class="time"><?= setdate($c['created_at']); ?></span>
+											   <p><?= $c['content'] ?></p>
 											</div>
 										</div>
-
+										<?php } ?>
 
 									</div>
 
@@ -139,80 +186,47 @@
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">	
+									<?php foreach ($ps as $p) { ?>
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+													<img src="<?= $siteUrl.$p['image'] ?>" alt="" class="img-thumbnail" />
+													</a>
+													<h2><?= number_format($p['price'],0,"",",")." đ" ?></h2>
+													<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+														<?= $p['name'] ?>												
+													</a>
+													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
+													<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
+								  	<?php } ?>			
+
 								</div>
 								<div class="item">	
+									<?php foreach ($ps2 as $p) { ?>
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+													<img src="<?= $siteUrl.$p['image'] ?>" alt="" class="img-thumbnail" />
+													</a>
+													<h2><?= number_format($p['price'],0,"",",")." đ" ?></h2>
+													<a href="product-detail.php?id=<?= $p['id'] ?>" title="">
+														<?= $p['name'] ?>												
+													</a>
+													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
+													<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/Bugatti-Chiron.jpg" alt="" />
-													<h2>650.000 d</h2>
-													<a href="" title="">Bugatti-Chiron tỉ lệ 1:12</a>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
+								  	<?php } ?>	
 								</div>
 							</div>
 							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
@@ -234,5 +248,6 @@
 
   
     <?php include_once './_share/bottom.php'; ?>
+
 </body>
 </html>

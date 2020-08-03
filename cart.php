@@ -1,3 +1,16 @@
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+
+	}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,12 +34,12 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
+							<td class="image">Sản phẩm</td>
 							<td class="description"></td>
-							<td class="price" width="150">Price</td>
-							<td class="quantity" width="150">Quantity</td>
-							<td class="total" width="150">Total</td>
-							<td></td>
+							<td class="price" width="150">Giá</td>
+							<td class="quantity" width="150">Số lượng</td>
+							<td class="total" width="150">Tổng</td>
+							<td>Xóa</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -39,7 +52,7 @@
 								<p>Web ID: 1089772</p>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<p>600,000 đ</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
@@ -53,7 +66,7 @@
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
+								<p class="cart_total_price">600,000 đ</p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
@@ -62,6 +75,12 @@
 
 						
 					</tbody>
+					<tfoot>
+						<tr class="cart_menu">
+							<td class="total" colspan="4">Tổng số tiền</td>
+							<td colspan="2">0 đ</td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
@@ -69,32 +88,37 @@
 
 	<section id="do_action">
 		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-			</div>
 			<div class="row">
 
 				<div class="col-sm-6">
 					<div class="total_area">
-						<form action="" method="post">
-							
-							<div class="form-group">
-								<label>Name:</label>
-								<input type="text" name="" value="" placeholder="" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Phone:</label>
-								<input type="text" name="" value="" placeholder="" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Email:</label>
-								<input type="text" name="" value="" placeholder="" class="form-control">
-							</div>
-							<button type="submit" class="btn btn-default check_out">Check Out</button>
-						</form>
-
-						
+						<?php if(!isset($_SESSION['cuser'])){ ?>
+							<h3>Hãy điền thông tin của bạn</h3>		
+							<form action="" method="post">
+								
+								<div class="form-group">
+									<label>Tên:</label>
+									<input type="text" name="name" placeholder="Họ và tên" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Email:</label>
+									<input type="text" name="email" placeholder="vd:vidu8@gmail.com" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Số điện thoại:</label>
+									<input type="text" name="phone" placeholder="0234567897" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Địa chỉ:</label>
+									<input type="text" name="address" placeholder="Cao bằng" class="form-control">
+								</div>
+								<button type="submit" class="btn btn-default check_out">Check Out</button>
+							</form>
+						<?php }else{ ?>
+							<form action="" method="post">
+								<button type="submit" name="check" class="btn btn-default check_out">Check Out</button>
+							</form>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

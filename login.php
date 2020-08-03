@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+ ?>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -18,9 +24,16 @@
 				<div class="col-sm-6 ">
 					<div class="login-form"><!--login form-->
 						<h1>Login to your account</h1>
-						<form action="#">
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email Address" />
+						<form action="post-login.php" method="post">
+							<input type="text" name="email" placeholder="Email" />
+							<?php if(isset($_GET['emailerror'])) : ?>
+								<span class="text-danger"><?= $_GET['emailerror'] ?></span>
+							<?php endif ?>
+							<input type="password" name="password" placeholder="Password" />
+							<?php if(isset($_GET['passworderror'])) : ?>
+								<span class="text-danger"><?= $_GET['passworderror'] ?></span>
+							<?php endif ?>
+							<br>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
