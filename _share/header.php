@@ -61,7 +61,7 @@
 					
 						<div class="mainmenu pull-right">
 							<ul class="nav navbar-nav ">
-                                <li><a href="<?= $siteUrl ?>cart.php"><i class="fa fa-shopping-cart"></i> Giỏ hàng (0)</a></li> 
+                                <li><a href="<?= $siteUrl ?>cart"><i class="fa fa-shopping-cart rcart"></i> Giỏ hàng (0)</a></li> 
 							  <?php if(!isset($_SESSION['cuser'])) { ?>
 								<li><a href="<?= $siteUrl ?>register.php"><i class="fa fa-user"></i> Đăng ký</a></li>
 								<li><a href="<?= $siteUrl ?>login.php"><i class="fa fa-lock"></i> Đăng nhập</a></li>

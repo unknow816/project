@@ -61,7 +61,9 @@
 													<?= $p['name'] ?>												
 												</a>
 												<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
-												<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$p['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
+													Add to cart
+												</button>	
 											</div>
 											
 									</div>
@@ -131,7 +133,9 @@
 														<?= $rp['name'] ?>												
 													</a>
 													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($rp['brand_id'],'brands') ?> </span></p>
-													<a href="cart.php?id=<?= $rp['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$rp['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
+														Add to cart
+													</button>	
 												</div>
 											</div>
 										</div>
@@ -152,7 +156,9 @@
 														<?= $rp['name'] ?>												
 													</a>
 													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($rp['brand_id'],'brands') ?> </span></p>
-													<a href="cart.php?id=<?= $rp['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$rp['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
+														Add to cart
+													</button>	
 												</div>
 											</div>
 										</div>
@@ -179,5 +185,20 @@
 
   
 	<?php include_once './_share/bottom.php'; ?>
+	<script type="text/javascript">
+
+
+
+		function addcart(n){
+			$.get('<?=$siteUrl ?>cart/add.php?id='+n, function(data) {
+
+			});
+
+			$('body').load('<?=$siteUrl ?>index.php' .rcart);
+		};
+
+
+
+	</script>
 </body>
 </html>

@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+ ?>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">

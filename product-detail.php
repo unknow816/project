@@ -64,12 +64,11 @@
 								<p>Product ID: <?= $product['id'] ?></p>
 									<span class="price"><?= number_format($product['price'],0,"",",") ?> đ</span>
 									<div class="cart_quantity_button">
-										<form style="margin:60px auto;display: flex" id="form" action="" method="get" accept-charset="utf-8">					
-											<span class="up" onclick="increase(+1)">+</span>
+										<form style="margin-top:60px;margin-bottom: 0px;" id="form" action="" method="post" accept-charset="utf-8">					
+											<a class="up" onclick="increase(+1)">+</a>
 											<input class="cart_quantity_input" type="text" name="quantity_input" value="1" size="2">
-											<span class="down" onclick="decrease(1)">-</span>
-											<button type="button" class="btn btn-fefault cart">
-												<i class="fa fa-shopping-cart"></i>
+											<a class="down" onclick="decrease(1)">-</a>
+											<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$product['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
 												Add to cart
 											</button>										
 										</form>
@@ -181,7 +180,7 @@
 					</div><!--/category-tab-->
 					
 					<div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">recommended items</h2>
+						<h2 class="title text-center">Sản phẩm liên quan</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
@@ -199,7 +198,9 @@
 														<?= $p['name'] ?>												
 													</a>
 													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
-													<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$p['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
+														Add to cart
+													</button>	
 												</div>
 											</div>
 										</div>
@@ -221,7 +222,9 @@
 														<?= $p['name'] ?>												
 													</a>
 													<p>Thương hiệu: <span style="font-weight: bold"> <?= getname($p['brand_id'],'brands') ?> </span></p>
-													<a href="cart.php?id=<?= $p['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$p['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
+														Add to cart
+													</button>	
 												</div>
 											</div>
 										</div>
@@ -248,6 +251,21 @@
 
   
     <?php include_once './_share/bottom.php'; ?>
+    <script type="text/javascript">
+    	
+    
 
+    	function addcart(n){
+    		var num = $('.cart_quantity_input').val();
+    		$.get('<?=$siteUrl ?>cart/add.php?id='+n+'&num='+num, function(data) {
+    			
+    		});
+
+    		$('body').load('<?=$siteUrl ?>product-detail.php?id='+n);
+    	};
+
+    	
+
+    </script>
 </body>
 </html>

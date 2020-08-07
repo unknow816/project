@@ -1,7 +1,7 @@
 <?php 
 
-	require_once './common/common.php';
-	require_once './common/function.php';
+	require_once '../common/common.php';
+	require_once '../common/function.php';
 
 	if(isset($_GET['id'])){
 		$id = $_GET['id'];
@@ -19,11 +19,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Cart</title>
-    <?php include_once './_share/client.php'; ?>
+    <?php include_once '../_share/client.php'; ?>
 </head><!--/head-->
 
 <body>
-	<?php include_once './_share/header.php'; ?>
+	<?php include_once '../_share/header.php'; ?>
 
 	<section id="cart_items">
 		<div class="container">
@@ -45,7 +45,7 @@
 					<tbody>
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="images/cart/one.png" alt=""></a>
+								<a href=""><img src="<?=$siteUrl ?>images/cart/one.png" alt=""></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href="">Colorblock Scuba</a></h4>
@@ -125,10 +125,10 @@
 		</div>
 	</section><!--/#do_action-->
 
-	<?php include_once './_share/footer.php'; ?>
+	<?php include_once '../_share/footer.php'; ?>
 	
 
 
-    <?php include_once './_share/bottom.php'; ?>
+    <?php include_once '../_share/bottom.php'; ?>
 </body>
 </html>
