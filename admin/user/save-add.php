@@ -57,6 +57,7 @@
     $erro = 1;
     $phoneerror = "Hay nhap so dien thoai";
   }else if (!is_numeric($phone)) {
+    $erro = 1;
     $phoneerror = "Hay nhap chu so";
   }elseif (strlen($phone) < 9 || strlen($phone) > 11) {
     $erro = 1;

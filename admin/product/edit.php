@@ -72,23 +72,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?= $adminUrl ?>/product/save-edit.php" method="post" enctype="multipart/form-data">
+            <form role="form" action="<?= $adminUrl ?>product/save-edit.php" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="id" value="<?= $product['id'] ?>">
               <div class="box-body col-sm-6">
                 <div class="form-group">
                   <label>Name:*</label>
                   <input type="text" class="form-control" name="name" value="<?= $product['name'] ?>">
 
-                  <?php if(isset($_GET['nameerror'])) : ?>
-                    <span class="text-danger"><?= $_GET['nameerror'] ?></span>
+                  <?php if(isset($_SESSION['nameerror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
                   <?php endif ?>
                 </div>
                 <div class="form-group">
                   <label>Price:*</label>
                   <input type="text" class="form-control" name="price" value="<?= $product['price'] ?>">
 
-                  <?php if(isset($_GET['priceerror'])) : ?>
-                    <span class="text-danger"><?= $_GET['priceerror'] ?></span>
+                  <?php if(isset($_SESSION['priceerror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['priceerror'] ?></span>
                   <?php endif ?>
                 </div>
                 <div class="form-group">
@@ -100,16 +100,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   	<?php endforeach ?>
                   </select>
 
-                  <?php if(isset($_GET['branderror'])) : ?>
-                    <span class="text-danger"><?= $_GET['branderror'] ?></span>
+                  <?php if(isset($_SESSION['branderror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['branderror'] ?></span>
                   <?php endif ?>
                 </div>
                 <div class="form-group">
                   <label>Size:*</label>
                   <input type="text" class="form-control" name="size" value="<?= $product['size'] ?>">
 
-                  <?php if(isset($_GET['sizeerror'])) : ?>
-                    <span class="text-danger"><?= $_GET['sizeerror'] ?></span>
+                  <?php if(isset($_SESSION['sizeerror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['sizeerror'] ?></span>
                   <?php endif ?>
                 </div>
                 <div class="form-group">
@@ -149,8 +149,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   	<?php endforeach ?>
                   </select>
 
-                  <?php if(isset($_GET['scaleerror'])) : ?>
-                    <span class="text-danger"><?= $_GET['scaleerror'] ?></span>
+                  <?php if(isset($_SESSION['scaleerror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['scaleerror'] ?></span>
                   <?php endif ?>
                 </div>
                 <div class="form-group">
@@ -161,8 +161,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <option <?php if($product['status'] == 1) echo "selected" ?> value="1">inactive</option>
                   </select>
 
-                  <?php if(isset($_GET['statuserror'])) : ?>
-                    <span class="text-danger"><?= $_GET['statuserror'] ?></span>
+                  <?php if(isset($_SESSION['statuserror'])) : ?>
+                    <span class="text-danger"><?= $_SESSION['statuserror'] ?></span>
                   <?php endif ?>
                 </div>               
               </div>

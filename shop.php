@@ -97,10 +97,11 @@
 
     	function addcart(n){
     		$.get('<?=$siteUrl ?>cart/add.php?id='+n, function(data) {
+
+    			$('body').load('<?=$siteUrl ?>shop.php');
     			
     		});
 
-    		$('body').load('<?=$siteUrl ?>shop.php' .rcart);
     	};
 
     	

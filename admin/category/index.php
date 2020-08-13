@@ -115,6 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <?php include_once $path.'_share/footer.php'; ?>
 
 
-  <?php include_once $path.'_share/bottom.php' ?>
+  <?php include_once $path.'_share/bottom.php'; ?>
+
 </body>
 </html>

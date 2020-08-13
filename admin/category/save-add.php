@@ -59,6 +59,6 @@
   <h2>ADD Success</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "<?= $adminUrl ?>category?succes=true";
+ 		window.location.href = "<?= $adminUrl ?>category?success=true";
  	},1500);
  </script>

@@ -3,10 +3,8 @@
 	require_once '../common/common.php';
 	require_once '../common/function.php';
 
-	if(isset($_GET['id'])){
-		$id = $_GET['id'];
+	$sessionValue = isset($_SESSION['cart']) == true ? $_SESSION['cart'] : "";
 
-	}
 
 
 
@@ -34,8 +32,8 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Sản phẩm</td>
-							<td class="description"></td>
+							<td class="image" width="250">Ảnh</td>
+							<td class="description">Tên</td>
 							<td class="price" width="150">Giá</td>
 							<td class="quantity" width="150">Số lượng</td>
 							<td class="total" width="150">Tổng</td>
@@ -43,42 +41,56 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php 
+							$total = 0;
+							$total_product = 0;
+							if(count($sessionValue)){
+								foreach ($sessionValue as $value) {
+									$total += $value['quantity'] * $value['price'];
+								}
+								foreach ($sessionValue as $pc) {
+						 ?>
 						<tr>
-							<td class="cart_product">
-								<a href=""><img src="<?=$siteUrl ?>images/cart/one.png" alt=""></a>
+							<td class="">
+								<a href=""><img style="width: 100%;"src="<?=$siteUrl.$pc['image'] ?>" alt=""></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
+								<h4><a href="<?= $siteUrl ?>product-detail.php?id=<?= $pc['id'] ?>"><?= $pc['name'] ?></a></h4>
+								<p>ID: <?= $pc['id'] ?></p>
 							</td>
 							<td class="cart_price">
-								<p>600,000 đ</p>
+								<p><?= number_format($pc['price'],0,"",","); ?> đ</p>
+
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<form id="form" action="" method="get" accept-charset="utf-8">					
-									<span class="up" onclick="increase(+1)"> + </span>
-										<input class="cart_quantity_input" type="text" name="quantity_input" value="1" autocomplete="off" size="2">
-									<span class="down" onclick="decrease(1)"> - </span>
+									<form id="form" action="edit.php" method="get" accept-charset="utf-8">				<input type="hidden" name="id" value="<?=$pc['id']?>">	
+										<span class="up"><a href="add.php?id=<?=$pc['id'] ?>"> + </a></span>
+											<input class="cart_quantity_input" type="text" id="<?=$pc['id'] ?>" name="num" value="<?=$pc['quantity']?>" size="2">
+										<span class="down"><a href="remove.php?id=<?=$pc['id'] ?>"> - </a></span>
 
-									<button type="button" class="btn btn-primary">Cap nhat</button>
+										<button type="submit" class="btn btn-primary">Cap nhat</button>
 									</form>
+									
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">600,000 đ</p>
+								<p class="cart_total_price"><?= number_format($pc['quantity']*$pc['price'],0,"",",") ;?> đ</p>
 							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							<td class="text-center">
+								<a class="cart_quantity_delete" style="font-size: 25px;display: block;background: #cccccc;border-radius: 5px;" href="<?=$siteUrl?>cart/delete.php?id=<?=$pc['id']?>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
-
+						<?php 
+							$total_product += $pc['quantity'];	}
+							}
+						 ?>
 						
 					</tbody>
 					<tfoot>
 						<tr class="cart_menu">
-							<td class="total" colspan="4">Tổng số tiền</td>
-							<td colspan="2">0 đ</td>
+							<td class="total" colspan="4"><h3>Tổng số tiền</h3></td>
+							<td colspan="2"><h3><?= number_format($total,0,"",",") ;?> đ</h3></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -94,7 +106,7 @@
 					<div class="total_area">
 						<?php if(!isset($_SESSION['cuser'])){ ?>
 							<h3>Hãy điền thông tin của bạn</h3>		
-							<form action="" method="post">
+							<form action="submit-order.php" method="post">
 								
 								<div class="form-group">
 									<label>Tên:</label>
@@ -112,10 +124,19 @@
 									<label>Địa chỉ:</label>
 									<input type="text" name="address" placeholder="Cao bằng" class="form-control">
 								</div>
+
+
+								<input type="hidden" name="total_product" value="<?= $total_product ?>">
+								<input type="hidden" name="total_price" value="<?=$total ?>">
+								<input type="hidden" name="status" value="0">
+								<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">
+
 								<button type="submit" class="btn btn-default check_out">Check Out</button>
 							</form>
 						<?php }else{ ?>
 							<form action="" method="post">
+
+								<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">
 								<button type="submit" name="check" class="btn btn-default check_out">Check Out</button>
 							</form>
 						<?php } ?>
@@ -130,5 +151,7 @@
 
 
     <?php include_once '../_share/bottom.php'; ?>
+
+ 
 </body>
 </html>

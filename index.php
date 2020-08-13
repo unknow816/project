@@ -2,7 +2,10 @@
 
 	require_once './common/common.php';
 	require_once './common/function.php';
-
+	// if(isset($_COOKIE['tsuccess'])){
+	// 	var_dump($_COOKIE['tsuccess']);
+	// 	die;
+	// }
 
 	$products = limitdata('products',0,6);
 
@@ -191,10 +194,10 @@
 
 		function addcart(n){
 			$.get('<?=$siteUrl ?>cart/add.php?id='+n, function(data) {
-
+				window.scrollTo(0,0);
+				$('body').load('<?=$siteUrl ?>index.php');
 			});
 
-			$('body').load('<?=$siteUrl ?>index.php' .rcart);
 		};
 
 

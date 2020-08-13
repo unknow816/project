@@ -24,7 +24,7 @@
 	    		<div class="col-sm-12">    			   			
 					<h2 class="title text-center">Contact <strong>Us</strong></h2>    			    				    				
 					<div id="gmap" class="contact-map text-center">
-						<img src="images/home/map.jpg" alt="">
+						<img src=" <?=$siteUrl.$web['map']  ?>" alt="">
 					</div>
 				</div>			 		
 			</div>    	
@@ -56,23 +56,11 @@
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Contact Info</h2>
 	    				<address>
-	    					<p>Fshop.</p>
-							<p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
-							<p>Newyork USA</p>
-							<p>Fax: 1-714-252-0026</p>
-							<p>Email: info@e-shopper.com</p>
+	    					<p><?=$web['name'] ?>.</p>	
+							<p>Hotline: <?=$web['hotline']  ?></p>
+							<p>Email: <?=$web['email']  ?></p>
 	    				</address>
-	    				<div class="social-networks">
-	    					<h2 class="title text-center">Social Networking</h2>
-							<ul>
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-youtube"></i></a>
-								</li>
-							</ul>
-	    				</div>
+	    				
 	    			</div>
     			</div>    			
 	    	</div>  

@@ -28,7 +28,8 @@
 					   	?>
 						<div class="item <?= $active ?>">
 							<div class="col-sm-6">
-								<h1><span>F</span>-shop</h1>
+								<!-- $web o header.php -->
+								<h1><?= $web['name']; ?></h1>
 								<h2><?= $s['name'] ?></h2>
 								<p><?= $s['detail']?></p>
 								<a href="<?= $siteUrl ?>shop.php" class="btn btn-default get"title="">Xem thêm..</a>

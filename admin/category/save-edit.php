@@ -67,7 +67,7 @@
 		$stmt->bindParam(":name", $name);
 		$stmt->bindParam(":detail", $detail);
 		$stmt->execute();
-		header('location:'.$adminUrl.'category?succes=true');
+		
 
 
 
@@ -75,6 +75,6 @@
  <h2>Edit Success</h2>
  <script type="text/javascript">
  	setTimeout(function(){
- 		window.location.href = "<?= $adminUrl ?>category?esucces=true";
+ 		window.location.href = "<?= $adminUrl ?>category?esuccess=true";
  	},1500);
  </script>

@@ -46,7 +46,7 @@ immediately after the control sidebar -->
 
 <script type="text/javascript">
 
-    <?php if(isset($_GET['success']) && $_GET['success'] == 'true') { ?>
+    <?php if(isset($_COOKIE['success']) && $_COOKIE['success'] == 'true') { ?>
 
       swal({
           title : "Add success",
@@ -55,7 +55,7 @@ immediately after the control sidebar -->
 
     <?php } ?>
 
-    <?php if(isset($_GET['esuccess']) && $_GET['esuccess'] == 'true') { ?>
+    <?php if(isset($_COOKIE['esuccess']) && $_COOKIE['esuccess'] == 'true') { ?>
 
       swal({
           title : "Edit success",
@@ -64,7 +64,7 @@ immediately after the control sidebar -->
 
     <?php } ?>
 
-    <?php if(isset($_GET['dsuccess']) && $_GET['dsuccess'] == 'true') { ?>
+    <?php if(isset($_COOKIE['dsuccess']) && $_COOKIE['dsuccess'] == 'true') { ?>
 
       swal({
           title : "It has been deteled!",

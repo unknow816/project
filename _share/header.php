@@ -61,13 +61,15 @@
 					
 						<div class="mainmenu pull-right">
 							<ul class="nav navbar-nav ">
-                                <li><a href="<?= $siteUrl ?>cart"><i class="fa fa-shopping-cart rcart"></i> Giỏ hàng (0)</a></li> 
+                                <li><a href="<?= $siteUrl ?>cart"><i class="fa fa-shopping-cart rcart"></i> Giỏ hàng (<?php if(isset($_SESSION['cart'])){
+                                	echo count($_SESSION['cart']);
+                                }else{ echo 0;} ?>)</a></li> 
 							  <?php if(!isset($_SESSION['cuser'])) { ?>
 								<li><a href="<?= $siteUrl ?>register.php"><i class="fa fa-user"></i> Đăng ký</a></li>
 								<li><a href="<?= $siteUrl ?>login.php"><i class="fa fa-lock"></i> Đăng nhập</a></li>
 							  <?php }else { ?>
 								<li class="dropdown"><a href="#">Xin chao
-									<img class="img" src="images/home/banner.jpg">
+									<img class="img" src="<?=$_SESSION['cuser']['avatar'] ?>">
 								<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="<?= $siteUrl ?>account.php">Cập nhật thông tin</a></li>

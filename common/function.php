@@ -68,4 +68,30 @@
 		return $stmt->fetchAll();
 	}
 
+
+
+	function addorder($table, $array){
+		global $conn;
+		$cols = "";
+		$vals = "";
+		$i = 0; //vi tri dau khong co dau pha?y
+		foreach ($array as $key => $value) {
+			if($i == 0){
+				$cols = $key;
+				$vals = "'".$value."'";
+			}else{
+				$cols .= ", ".$key;
+				$vals .= ", '".$value."'";
+			}
+			$i++;
+		}
+
+		$sql = "insert into ".$table." ($cols)";
+		$sql .= "values($vals)";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		return $conn->lastInsertId();
+		//return $sql;
+	}
+
  ?>

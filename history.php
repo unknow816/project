@@ -1,4 +1,21 @@
-<!DOCTYPE html>
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+	$sessionUser = isset($_SESSION['cuser']) == true ? $_SESSION['cuser'] : "";
+	$email = $sessionUser['email'];
+	$sql = "select * from orders where email = '$email'";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$order_ids = $stmt->fetchAll();
+
+	// echo "<pre>";
+	// var_dump($order_id);
+	// echo "</pre>";
+	// echo $sql;
+ ?>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,7 +39,6 @@
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">OrderID</td>
-							<td class="description">Username</td>
 							<td class="price">Total product</td>
 							<td class="price">Total price</td>
 							<td class="price">Created_at</td>
@@ -30,28 +46,26 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($order_ids as $o) { ?>
 						<tr>
 							<td class="cart_product">
-								<p>1</p>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>								
+								<p><?= $o['id'] ?></p>
 							</td>
 							<td class="cart_total_price">
-								<p>0</p>
+								<p><?= $o['total_product'] ?></p>
 							</td>
 							<td class="cart_total_price">
-								<p>1.000.000 d</p>
+								<p><?= number_format($o['total_price'],0,"",","); ?> d</p>
 							</td>					
 							<td>
-								<p>01/10/2020</p>
+								<p><?= $o['created_at'] ?></p>
 							</td>
 							
 							<td>
-								<a class="#" href="">Xem chi tiet..</a>
+								<a class="" href="<?= $siteUrl ?>history-detail.php?id=<?=$o['id']?>">Xem chi tiet..</a>
 							</td>
 						</tr>
-
+						<?php } ?>
 						
 					</tbody>
 				</table>

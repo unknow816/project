@@ -2,6 +2,7 @@
   
   $path = "../";
   require_once $path.$path.'common/common.php';
+  require_once $path.$path.'common/function.php';
 
   if($_SERVER['REQUEST_METHOD'] != 'POST'){
     header('location:'.$adminUrl.'product');
@@ -23,51 +24,76 @@
 
 
   $erro = 0;
+  $check = check('products','name',$name);
   $filename = "";
 
   if(strlen($name) == 0){
     $erro = 1;
-    $nameerror = "Hay nhap ten";
+    $_SESSION['nameerror'] = "Hay nhap ten";
   } elseif (strlen($name) > 150) {
     $erro = 1;
-    $nameerror = "Khong nhap qua 150 ky tu";
+    $_SESSION['nameerror'] = "Khong nhap qua 150 ky tu";
+  } elseif ($check == true) {
+    if($check['id'] == $id){
+      $erro = 0;
+      $_SESSION['nameerror'] = "";
+    }else{
+      $erro = 1;
+      $_SESSION['nameerror'] = "Ten da ton tai";
+    }
+  }else{
+    $_SESSION['nameerror'] = "";
   }
 
   if($price == ''){
     $erro = 1;
-    $priceerror = "Hay nhap gia";
+    $_SESSION['priceerror'] = "Hay nhap gia";
+  }elseif (!is_numeric($price)) {
+    $erro = 1;
+    $_SESSION['priceerror'] = "Hay nhap chu so";
   }elseif ($price < 0 OR $price <= 49999) {
     $erro = 1;
-    $priceerror = "Phai nhap gia lon hon 0 va nhap gia toi thieu la 50.000 VND";
+    $_SESSION['priceerror'] = "Phai nhap gia lon hon 0 va nhap gia toi thieu la 50.000 VND";
   } elseif (strlen($price) > 7 ) {
     $erro = 1;
-    $priceerror = "Khong nhap qua so tien 10.000.000 VND";
+    $_SESSION['priceerror'] = "Khong nhap qua so tien 10.000.000 VND";
+  } else{
+    $_SESSION['priceerror'] = "";
   }
 
   if($brand == ""){
     $erro = 1;
-    $branderror = "Hay chon hang";
+    $_SESSION['branderror'] = "Hay chon hang";
+  }else{
+    $_SESSION['branderror'] = "";
   }
 
   if(strlen($size) == 0){
     $erro = 1;
-    $sizeerror = "Hay nhap chieu dai x chieu rong x chieu cao";
+    $_SESSION['sizeerror'] = "Hay nhap kich thuoc";
+  }else{
+    $_SESSION['sizeerror'] = "";
   }
 
   if($scale == ""){
     $erro = 1;
-    $scaleerror = "Hay chon ti le";
+    $_SESSION['scaleerror'] = "Hay chon ti le";
+  }else{
+    $_SESSION['scaleerror'] = "";
   }
 
   if($status == ""){
     $erro = 1;
-    $statuserror = "Hay chon hien thi hoac khong";
+    $_SESSION['statuserror'] = "Hay chon trang thai";
+  }else{
+    $_SESSION['statuserror'] = "";
   }
 
 
 
   if($erro == 1){
-    header('location:'.$adminUrl.'product/edit.php?nameerror='.$nameerror.'&priceerror='.$priceerror.'&branderror='.$branderror.'&sizeerror='.$sizeerror.'&scaleerror='.$scaleerror.'&statuserror='.$statuserror);
+    header('location:'.$adminUrl.'product/edit.php?id='.$id);
+    die;
   }
 
 
@@ -94,11 +120,27 @@
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
+    setcookie('esuccess', 'true', time() + 2, "/");
  ?>
 
- <h2>Edit Success Loading....</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cart</title>
+    <?php include_once $path.$path.'_share/client.php'; ?>
+</head><!--/head-->
+<body class="text-center" >
+
+    <h2 style="margin: 350px 0;">Loading .....</h2>
+  
+</body>
  <script type="text/javascript">
   setTimeout(function(){
-    window.location.href = "<?= $adminUrl ?>product?esuccess=true";
+    window.location.href = "<?= $adminUrl ?>product";
   },1500);
  </script>
+</html>

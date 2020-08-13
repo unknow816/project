@@ -1,3 +1,14 @@
+<?php 
+
+	require_once './common/common.php';
+	require_once './common/function.php';
+
+	$sessionUser = isset($_SESSION['cuser']) == true ? $_SESSION['cuser'] : "";
+	$id = $sessionUser['id'];
+	$user = getdata_by_id($id,'users');
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +29,13 @@
 			
 			<div class="avatar col-sm-12">
 				<div class="pull-left">
-					<img src="images/home/banner.jpg" class="img-thumbnail image">
+					<img src="<?php 
+						if(strlen($user['avatar']) == 0 ){ 
+							echo "images/home/banner.jpg";
+						}else{
+							echo $siteUrl.$user['avatar'];
+						} ?>" 
+					class="img-thumbnail image">
 				</div>
 			</div>
 			<div class="col-sm-8">

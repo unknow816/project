@@ -40,9 +40,24 @@
 	}
 
  ?>
-  <h2>Login Success Loading....</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cart</title>
+    <?php include_once '../_share/client.php'; ?>
+</head><!--/head-->
+<body class="text-center" >
+
+    <h2 style="margin: 350px 0;">Loading .....</h2>
+  
+</body>
  <script type="text/javascript">
   setTimeout(function(){
     window.location.href = "<?= $adminUrl ?>";
   },1500);
  </script>
+</html>

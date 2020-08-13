@@ -64,9 +64,9 @@
 								<p>Product ID: <?= $product['id'] ?></p>
 									<span class="price"><?= number_format($product['price'],0,"",",") ?> đ</span>
 									<div class="cart_quantity_button">
-										<form style="margin-top:60px;margin-bottom: 0px;" id="form" action="" method="post" accept-charset="utf-8">					
+										<form style="margin-top:60px;margin-bottom: 0px;" id="form" action="" method="get" accept-charset="utf-8">					
 											<a class="up" onclick="increase(+1)">+</a>
-											<input class="cart_quantity_input" type="text" name="quantity_input" value="1" size="2">
+											<input class="cart_quantity_input" type="text" name="num" value="1" size="2">
 											<a class="down" onclick="decrease(1)">-</a>
 											<button type="button" class="btn btn-fefault cart" onclick="addcart(<?=$product['id'] ?>)" ><i class="fa fa-shopping-cart"></i>
 												Add to cart
@@ -259,9 +259,9 @@
     		var num = $('.cart_quantity_input').val();
     		$.get('<?=$siteUrl ?>cart/add.php?id='+n+'&num='+num, function(data) {
     			
+    			$('body').load('<?=$siteUrl ?>product-detail.php?id='+n);
     		});
 
-    		$('body').load('<?=$siteUrl ?>product-detail.php?id='+n);
     	};
 
     	
