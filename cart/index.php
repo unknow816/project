@@ -134,7 +134,7 @@
 								<button type="submit" class="btn btn-default check_out">Check Out</button>
 							</form>
 						<?php }else{ ?>
-							<form action="" method="post">
+							<form action="submit-order.php" method="post">
 
 								<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">
 								<button type="submit" name="check" class="btn btn-default check_out">Check Out</button>

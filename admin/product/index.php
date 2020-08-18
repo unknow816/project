@@ -171,12 +171,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
              
                   if(!isset($cate_id) and !isset($brand_id)){
                     echo '<li><a href="'.$adminUrl.'product?page='.($current_page - 1).'">«</a></li>';
+                  }elseif(isset($cate_id) and isset($_GET['brand_id'])){
+                    echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$_GET['brand_id'].'&page='.($current_page - 1).'">«</a></li>';
                   }elseif(isset($cate_id)){
                     echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id=&page='.($current_page - 1).'">«</a></li>';
                   }elseif(isset($brand_id)){
                     echo '<li><a href="'.$adminUrl.'product?cate_id=&brand_id='.$brand_id.'&page='.($current_page - 1).'">«</a></li>';
-                  }else{
-                    echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$brand_id.'&page='.($current_page - 1).'">«</a></li>';
                   }           
                 }else{
                   echo '<li><span>«</span></li>';
@@ -188,12 +188,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    }else {
                       if(!isset($cate_id) and !isset($brand_id)){
                         echo '<li><a href="'.$adminUrl.'product?page='.$i.'">'.$i.'</a></li>';
+                      }elseif(isset($cate_id) and isset($_GET['brand_id'])){
+                        echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$_GET['brand_id'].'&page='.$i.'">'.$i.'</a></li>';
                       }elseif(isset($cate_id)){
                         echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id=&page='.$i.'">'.$i.'</a></li>';
                       }elseif(isset($brand_id)){
                         echo '<li><a href="'.$adminUrl.'product?cate_id=&brand_id='.$brand_id.'&page='.$i.'">'.$i.'</a></li>';
-                      }elseif(isset($cate_id) and isset($brand_id)){
-                        echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$brand_id.'&page='.$i.'">'.$i.'</a></li>';
                       }else{
 
                         echo '<li><a href="'.$adminUrl.'product?page='.$i.'">'.$i.'</a></li>';
@@ -205,12 +205,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     if(!isset($cate_id) and !isset($brand_id)){
                       echo '<li><a href="'.$adminUrl.'product?page='.($current_page + 1).'">»</a></li>';
+                    }elseif(isset($cate_id) and isset($_GET['brand_id'])){
+
+                      echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$_GET['brand_id'].'&page='.($current_page + 1).'">»</a></li>';
                     }elseif(isset($cate_id)){
                       echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id=&page='.($current_page + 1).'">»</a></li>';
                     }elseif(isset($brand_id)){
                       echo '<li><a href="'.$adminUrl.'product?cate_id=&brand_id='.$brand_id.'&page='.($current_page + 1).'">»</a></li>';
-                    }else{
-                      echo '<li><a href="'.$adminUrl.'product?cate_id='.$cate_id.'&brand_id='.$brand_id.'&page='.($current_page + 1).'">»</a></li>';
                     }
 
                 }else{

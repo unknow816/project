@@ -61,7 +61,7 @@
 					
 						<div class="mainmenu pull-right">
 							<ul class="nav navbar-nav ">
-                                <li><a href="<?= $siteUrl ?>cart"><i class="fa fa-shopping-cart rcart"></i> Giỏ hàng (<?php if(isset($_SESSION['cart'])){
+                                <li><a href="<?= $siteUrl ?>cart"><i class="fa fa-shopping-cart rcart"></i> Giỏ hàng (<?php if(isset($_SESSION['cart']) ){
                                 	echo count($_SESSION['cart']);
                                 }else{ echo 0;} ?>)</a></li> 
 							  <?php if(!isset($_SESSION['cuser'])) { ?>

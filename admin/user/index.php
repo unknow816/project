@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <td><?php setdate($u['created_at']) ?></td>
                       <td>
                         <a href="javascript:" data-href="<?= $adminUrl ?>user/edit.php?id=<?= $u['id'] ?>" class="btn btn-primary bm">Edit</a>
-                        <a href="javascript:" data-href="<?= $adminUrl ?>user/delete.php?id=<?= $u['id'] ?>" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
+                        <!-- <a href="javascript:" data-href="<?= $adminUrl ?>user/delete.php?id=<?= $u['id'] ?>" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a> -->
                       </td>
                     </tr>
                   <?php endforeach ?>

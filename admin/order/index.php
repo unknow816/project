@@ -4,7 +4,16 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
-  $orders = getdata('orders');
+
+  if(isset($_GET['keyword'])){
+    $phone = $_GET['keyword'];
+    $sql = "select * from orders where phone like '%$phone%'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $orders = $stmt->fetchAll();
+  }else{
+    $orders = getdata('orders');
+  }
 
   if(!isset($_SESSION['user'])){
     header('location:'.$adminUrl.'login.php');
@@ -60,6 +69,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Table Oder</h3>
+              <div class="pull-right form-group has-feedback">
+                <form action="" method="get" accept-charset="utf-8">
+                  <input type="search" name="keyword" value="" placeholder="Tim kiem theo sdt" class="form-control">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </form>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -85,18 +100,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <td><?= $o['phone'] ?></td>
                       <td><?= $o['address'] ?></td>
                       <td><?= $o['total_product'] ?></td>
-                      <td><?= $o['total_price'] ?></td>
-                      <td><form action="save.php" method="post" accept-charset="utf-8">
+                      <td><?= number_format($o['total_price'],0,"",","); ?> d</td>
+                      <td><form action="save.php" method="post"  accept-charset="utf-8" >
                       		<input type="hidden" name="id" value="<?= $o['id'] ?>">
-                      		<select name="status" class="form-control">
+                      		<select name="status" class="form-control" 
+                            <?php if($o['status'] == 1 or $o['status'] == 2){ echo 'disabled'; }?>>
                       			<option <?php if($o['status'] == 0) echo "selected" ?> value="0">Đang xử lý...</option>
+                            <option <?php if($o['status'] == 2) echo "selected" ?>  value="2">Hủy</option>
                       			<option <?php if($o['status'] == 1) echo "selected" ?>  value="1">Hoàn thành</option>
                       		</select>
-                      		<button type="submit" class="btn btn-primary">Cập nhật</button>
+                      		<button type="submit" class="btn btn-primary" <?php if($o['status'] == 1 or $o['status'] == 2) echo 'disabled' ?>>Cập nhật</button>
                       	  </form>
                       </td>
                       <td><?= $o['created_at'] ?></td>
                       <td>
+                        <a href="javascript:" data-href="<?= $adminUrl ?>order/info.php?id=<?= $o['id'] ?>" class="btn btn-primary bm">Xem chi tiet..</a>
                         <a href="javascript:" data-href="<?= $adminUrl ?>order/delete.php?id=<?= $o['id'] ?>" title="" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</a>
                       </td>
                     </tr>                            

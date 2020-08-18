@@ -33,6 +33,7 @@
 	// header('localhost:index.php');
 		
 		setcookie('tsuccess', 'true', time() + 2, "/");
+		unset($_SESSION['cart']);
 
 
  ?>
