@@ -2,17 +2,27 @@
 	require_once './common/common.php';
 	require_once './common/function.php';
 
+
+
+	$totalsp = count(getdata('products'));
+	$limit = 6;
+	$total_page = ceil($totalsp/$limit);
+
+	$current_page = isset($_GET['page']) == true ? $_GET['page'] : 1;
+
+	$star = ($current_page - 1) * $limit; 
+
 	if(isset($_GET['search'])){
 		$name = $_GET['search'];
-		$sql = "select * from products where name like '%$name%'";
+		$sql = "select * from products where status = 0 and name like '%$name%'";
 	}elseif(isset($_GET['cate_id'])){
-		$id = $_GET['cate_id'];
-		$sql = "select * from products where cate_id = $id";
+		$cate_id = $_GET['cate_id'];
+		$sql = "select * from products where status = 0 and cate_id = $cate_id limit $star, $limit";
 	}elseif(isset($_GET['brand_id'])){
-		$id = $_GET['brand_id'];
-		$sql = "select * from products where brand_id = $id";
+		$brand_id = $_GET['brand_id'];
+		$sql = "select * from products where status = 0 and brand_id = $brand_id limit $star, $limit";
 	}else{
-		$sql = "select * from products ";
+		$sql = "select * from products where status = 0 limit $star, $limit";
 	}
 
 		$stmt = $conn->prepare($sql);
@@ -74,11 +84,49 @@
 					
 						
 						<ul class="pagination col-sm-12">
-							<li><a href="">&laquo;</a></li>
-							<li class="active"><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">&raquo;</a></li>
+							<?php if($current_page > 1){
+
+								if(!isset($cate_id) and !isset($brand_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?page='.($current_page - 1).'">«</a></li>';
+								}elseif(isset($cate_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?cate_id='.$cate_id.'&page='.($current_page - 1).'">«</a></li>';
+								}elseif(isset($brand_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?brand_id='.$brand_id.'&page='.($current_page - 1).'">«</a></li>';
+								}           
+							}else{
+								echo '<li><span>«</span></li>';
+							} ?>
+
+							<?php for ($i=1; $i <= $total_page; $i++) {  ?>
+								<?php if($current_page == $i) {
+									echo '<li><span style="background:#cccccc;color:white">'.$i.'</span></li>';
+								}else {
+									if(!isset($cate_id) and !isset($brand_id)){
+										echo '<li><a href="'.$siteUrl.'shop.php?page='.$i.'">'.$i.'</a></li>';
+									}elseif(isset($cate_id)){
+										echo '<li><a href="'.$siteUrl.'shop.php?cate_id='.$cate_id.'&page='.$i.'">'.$i.'</a></li>';
+									}elseif(isset($brand_id)){
+										echo '<li><a href="'.$siteUrl.'shop.php?brand_id='.$brand_id.'&page='.$i.'">'.$i.'</a></li>';
+									}else{
+
+										echo '<li><a href="'.$siteUrl.'shop.php?page='.$i.'">'.$i.'</a></li>';
+									}
+								}?>
+							<?php } ?>
+
+							<?php if($current_page < $total_page){
+
+								if(!isset($cate_id) and !isset($brand_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?page='.($current_page + 1).'">»</a></li>';
+								}elseif(isset($cate_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?cate_id='.$cate_id.'&page='.($current_page + 1).'">»</a></li>';
+								}elseif(isset($brand_id)){
+									echo '<li><a href="'.$siteUrl.'shop.php?brand_id='.$brand_id.'&page='.($current_page + 1).'">»</a></li>';
+								}
+
+							}else{
+								echo '<li><span>»</span></li>';
+							} ?>
 						</ul>
 					</div><!--features_items-->
 				</div>

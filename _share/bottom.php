@@ -26,5 +26,14 @@
 
 	    <?php } ?>
 
+	    <?php if(isset($_COOKIE['asuccess']) && $_COOKIE['asuccess'] == 'true') { ?>
+
+	    	swal({
+	    		title : "Success ",
+	    		icon : "success",
+	    	});
+
+	    <?php } ?>
+
   </script>
 

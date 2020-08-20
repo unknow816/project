@@ -13,33 +13,39 @@
 
 	if(strlen($name) == 0){
 		$erro = 1;
-		$nameerror = "Hãy nhập tên";
+		$_SESSION['nameerror'] = "Hãy nhập tên";
 	} elseif (strlen($name) > 50) {
 		$erro = 1;
-		$nameerror = "Không nhập quá 50 ký tự";
+		$_SESSION['nameerror'] = "Không nhập quá 50 ký tự";
+	}else{
+		$_SESSION['nameerror'] = "";
 	}
 
 	if($email == ''){
 		$erro = 1;
-		$emailerror = "Hãy nhập email";
+		$_SESSION['emailerror'] = "Hãy nhập email";
 	}elseif (!preg_match($patten, $email)) {
 		$erro = 1;
-		$emailerror = "Nhập đúng định dạng email vd:ten08@gmail.com";
+		$_SESSION['emailerror'] = "Nhập đúng định dạng email vd:ten08@gmail.com";
 	}elseif ($checkemail == true) {
 		$erro = 1;
-		$emailerror = "Email đã tồn tại";
+		$_SESSION['emailerror'] = "Email đã tồn tại";
+	}else{
+		$_SESSION['emailerror'] = "";
 	}
 
 	if($password == ""){
 		$erro = 1;
-		$passworderror = "Hãy nhập mật khẩu";
+		$_SESSION['passworderror'] = "Hãy nhập mật khẩu";
 	}elseif (strlen($password) < 6) {
 		$erro = 1;
-		$passworderror = "Hãy nhập mật khẩu dài hơn 6 ký tự";
+		$_SESSION['passworderror'] = "Hãy nhập mật khẩu dài hơn 6 ký tự";
+	}else{
+		$_SESSION['passworderror'] = "";
 	}
 
 	if($erro == 1){
-		header('location:'.$siteUrl.'register.php?nameerror='.$nameerror.'&emailerror='.$emailerror.'&passworderror='.$passworderror);
+		header('location:'.$siteUrl.'register.php');
 		die;
 	
 	}
@@ -65,7 +71,31 @@
 	// echo $sql;
 	$stmt = $conn->prepare($sql);
     $stmt->execute();
-    header('location:'.$siteUrl.'login.php');
+
+    setcookie('asuccess','true',time() + 2,"/");
+
+    //header('location:'.$siteUrl.'login.php');
 
 
  ?>
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cart</title>
+    <?php include_once '../_share/client.php'; ?>
+</head><!--/head-->
+<body class="text-center" >
+
+  	<h2 style="margin: 350px 0;">Loading .....</h2>
+	
+</body>
+ <script type="text/javascript">
+  setTimeout(function(){
+    window.location.href = "<?= $siteUrl ?>login.php";
+  },1500);
+ </script>
+</html>

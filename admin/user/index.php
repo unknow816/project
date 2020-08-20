@@ -4,7 +4,7 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
 
-  $sql ="select *from users";
+  $sql ="select *from users order by id desc";
   $stmt= $conn->prepare($sql);
   $stmt->execute();
   $users = $stmt->fetchAll();
@@ -100,7 +100,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </td>
                       <td><?= $u['address'] ?></td>
                       <td> <?= $u['phone'] ?></td>
-                      <td><?= $u['gender'] == 0? "Nam" : "Nu" ?></td>
+                      <td><?php if($u['gender'] == 2){echo "Nam";} elseif ($u['gender'] == 1) {
+                        echo "Nu";}else{echo "Unknow";} ?></td>
                       <td><?= $u['status'] == 0? "active" : "inactive" ?></td>
                       <td><?php setdate($u['created_at']) ?></td>
                       <td>

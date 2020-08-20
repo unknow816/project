@@ -130,19 +130,19 @@
 											<input type="text" name="name" placeholder="Your Name"/>
 
 											<input type="text" name="email" placeholder="Email Address"/>
-											<?php if(isset($_GET['nameerror'])) : ?>
-												<span class="text-danger"><?= $_GET['nameerror'] ?></span>
+											<?php if(isset($_SESSION['nameerror'])) : ?>
+												<span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
 											<?php endif ?>
-											<?php if(isset($_GET['emailerror'])) : ?>
-												<span class="text-danger"><?= $_GET['emailerror'] ?></span>
+											<?php if(isset($_SESSION['emailerror'])) : ?>
+												<span class="text-danger"><?= $_SESSION['emailerror'] ?></span>
 											<?php endif ?>
 											
 										</span>
 										<textarea name="content" placeholder="Your messages"></textarea>
-										<?php if(isset($_GET['contenterror'])) : ?>
-											<span class="text-danger"><?= $_GET['contenterror'] ?></span>
+										<?php if(isset($_SESSION['contenterror'])) : ?>
+											<span class="text-danger"><?= $_SESSION['contenterror'] ?></span>
 										<?php endif ?>
-										<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">
+										<input type="hidden" name="created_at" value="<?= date("Y/m/d h:i:s") ?>">
 										<button type="submit" class="btn btn-default pull-right">
 											Submit
 										</button>

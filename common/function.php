@@ -31,7 +31,7 @@
 
 	function setdate($created_at){
 		$date = date_create($created_at);
-		echo date_format($date,"m/d/Y");;
+		echo date_format($date,"m/d/Y h:i:s");;
 	}
 
 	function check($table,$col,$value){

@@ -26,12 +26,12 @@
 						<h1>Login to your account</h1>
 						<form action="post-login.php" method="post">
 							<input type="text" name="email" placeholder="Email" />
-							<?php if(isset($_GET['emailerror'])) : ?>
-								<span class="text-danger"><?= $_GET['emailerror'] ?></span>
+							<?php if(isset($_SESSION['emailerror'])) : ?>
+								<span class="text-danger"><?= $_SESSION['emailerror'] ?></span>
 							<?php endif ?>
 							<input type="password" name="password" placeholder="Password" />
-							<?php if(isset($_GET['passworderror'])) : ?>
-								<span class="text-danger"><?= $_GET['passworderror'] ?></span>
+							<?php if(isset($_SESSION['passworderror'])) : ?>
+								<span class="text-danger"><?= $_SESSION['passworderror'] ?></span>
 							<?php endif ?>
 							<br>
 							<span>

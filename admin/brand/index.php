@@ -4,7 +4,7 @@
   require_once $path.$path.'common/common.php';
   require_once $path.$path.'common/function.php';
   
-  $sql = "select * from brands";
+  $sql = "select * from brands order by id desc";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   $brands = $stmt->fetchAll();

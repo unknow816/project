@@ -69,7 +69,11 @@
 								<li><a href="<?= $siteUrl ?>login.php"><i class="fa fa-lock"></i> Đăng nhập</a></li>
 							  <?php }else { ?>
 								<li class="dropdown"><a href="#">Xin chao
-									<img class="img" src="<?=$_SESSION['cuser']['avatar'] ?>">
+									<img class="img" src="<?php if(isset($_SESSION['cuser']['avatar'])){
+										echo $_SESSION['cuser']['avatar'];
+									}else{
+										echo $siteUrl.'images/home/banner.jpg';
+									} ?>">
 								<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="<?= $siteUrl ?>account.php">Cập nhật thông tin</a></li>

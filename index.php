@@ -11,12 +11,12 @@
 
 	$brands = getdata('brands');
 
-	$sql = "select * from products limit 0,3";
+	$sql = "select * from products where status = 0 limit 0,3 ";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$rproducts = $stmt->fetchAll();
 
-	$sql = "select * from products limit 3,3";
+	$sql = "select * from products where status = 0 limit 3,3 ";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$rproducts2 = $stmt->fetchAll();

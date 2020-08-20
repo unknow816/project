@@ -42,6 +42,7 @@
 					</thead>
 					<tbody>
 						<?php 
+						if(isset($_SESSION['cart'])){
 							$total = 0;
 							$total_product = 0;
 							if(count($sessionValue)){
@@ -84,6 +85,7 @@
 						<?php 
 							$total_product += $pc['quantity'];	}
 							}
+						
 						 ?>
 						
 					</tbody>
@@ -92,6 +94,7 @@
 							<td class="total" colspan="4"><h3>Tổng số tiền</h3></td>
 							<td colspan="2"><h3><?= number_format($total,0,"",",") ;?> đ</h3></td>
 						</tr>
+						<?php } ?>
 					</tfoot>
 				</table>
 			</div>
@@ -111,18 +114,30 @@
 								<div class="form-group">
 									<label>Tên:</label>
 									<input type="text" name="name" placeholder="Họ và tên" class="form-control">
+									<?php if(isset($_SESSION['nameerror'])) : ?>
+										<span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
+									<?php endif ?>
 								</div>
 								<div class="form-group">
 									<label>Email:</label>
 									<input type="text" name="email" placeholder="vd:vidu8@gmail.com" class="form-control">
+									<?php if(isset($_SESSION['emailerror'])) : ?>
+										<span class="text-danger"><?= $_SESSION['emailerror'] ?></span>
+									<?php endif ?>
 								</div>
 								<div class="form-group">
 									<label>Số điện thoại:</label>
 									<input type="text" name="phone" placeholder="0234567897" class="form-control">
+									<?php if(isset($_SESSION['phoneerror'])) : ?>
+										<span class="text-danger"><?= $_SESSION['phoneerror'] ?></span>
+									<?php endif ?>
 								</div>
 								<div class="form-group">
 									<label>Địa chỉ:</label>
 									<input type="text" name="address" placeholder="Cao bằng" class="form-control">
+									<?php if(isset($_SESSION['addresserror'])) : ?>
+										<span class="text-danger"><?= $_SESSION['addresserror'] ?></span>
+									<?php endif ?>
 								</div>
 
 

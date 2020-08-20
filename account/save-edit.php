@@ -14,11 +14,28 @@
 	$total = "";
 	$index = 0;
 	$id = $_POST['id'];
+	$email = $_POST['email'];
 	$password = $_POST['password'];
 	$avatar = $_FILES['avatar'];
 	$filename = "";
 
+	$erro = 0;
+	$patten = '/^[a-z0-9]+@[a-z0-9]+(.[a-z]{2,})+$/';
 
+	if($email == ''){
+		$erro = 1;
+		$_SESSION['emailerror'] = "hãy nhập email";
+	}elseif (!preg_match($patten, $email)) {
+		$erro = 1;
+		$_SESSION['emailerror'] = "Nhập đúng định dạng email vd:ten08@gmail.com";
+	}else{
+		$_SESSION['emailerror'] = "";
+	}
+
+	if($erro == 1){
+		header('location:'.$siteUrl.'account.php?request=edit');
+		die;
+	}
 	//ar_dump($_POST);
 	foreach ($_POST as $key => $value) {
 		if($key != 'password' and $key != 'id'){

@@ -54,24 +54,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-group">
                   <label>Name:*</label>
                   <input type="text" name="name" class="form-control">
-                  <?php if(isset($_GET['nameerror'])): ?>
-                    <span class="text-danger"><?= $_GET['nameerror'] ?></span>
+                  <?php if(isset($_SESSION['nameerror'])): ?>
+                    <span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
                   <?php endif ?>
                 </div>
 
                 <div class="form-group">
                   <label>Image:*</label>
                   <input type="file" name="image">
-                  <?php if(isset($_GET['imageerror'])): ?>
-                    <span class="text-danger"><?= $_GET['imageerror'] ?></span>
+                  <?php if(isset($_SESSION['imageerror'])): ?>
+                    <span class="text-danger"><?= $_SESSION['imageerror'] ?></span>
                   <?php endif ?>
                 </div>
 
                 <div class="form-group">
                   <label>Detail:</label>
                   <textarea name="detail" class="form-control" rows="4"></textarea>
-                  <?php if(isset($_GET['detailerror'])): ?>
-                    <span class="text-danger"><?= $_GET['detailerror'] ?></span>
+                  <?php if(isset($_SESSION['detailerror'])): ?>
+                    <span class="text-danger"><?= $_SESSION['detailerror'] ?></span>
                   <?php endif ?>
                 </div>
 

@@ -66,8 +66,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-group">
                   <label>Name:*</label>
                   <input type="text" name="name" class="form-control" value="<?= $cate['name'] ?>">
-                  <?php if(isset($_GET['nameerror'])): ?>
-                    <span class="text-danger"><?= $_GET['nameerror'] ?></span>
+                  <?php if(isset($_SESSION['nameerror'])): ?>
+                    <span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
                   <?php endif ?>
                 </div>
 

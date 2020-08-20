@@ -17,6 +17,9 @@
 	<div class="form-group">
 		<label>Email:</label>
 		<input type="text" name="email" value="<?= $user['email'] ?>" placeholder="" class="form-control">
+		<?php if(isset($_SESSION['emailerror'])) : ?>
+			<span class="text-danger"><?= $_SESSION['emailerror'] ?></span>
+		<?php endif ?>
 	</div>
 	<div class="form-group">
 		<label>Edit Password:</label>

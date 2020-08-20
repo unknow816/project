@@ -30,62 +30,70 @@
   // always use var_dump()
   // echo substr_compare(4,4,0);
 
- if(strlen($name) == 0){
+
+
+  if(strlen($name) == 0){
     $erro = 1;
-    $nameerror = "Hay nhap ten";
+    $_SESSION['nameerror'] = "Hay nhap ten";
   } elseif (strlen($name) > 50) {
     $erro = 1;
-    $nameerror = "Khong nhap qua 50 ky tu";
+    $_SESSION['nameerror'] = "Khong nhap qua 50 ky tu";
+  }else{
+    $_SESSION['nameerror'] = "";
   }
-
-
 
   if($email == ''){
     $erro = 1;
-    $emailerror = "Hay nhap email";
-  }elseif (!preg_match($patten,$email)) {
+    $_SESSION['emailerror'] = "Hay nhap email";
+  }elseif (!preg_match($patten, $email)) {
     $erro = 1;
-    $emailerror = "Nhap dung dinh dang email vd:ten08@gmail.com";
-  }elseif($checkemail == true){
-
+    $_SESSION['emailerror'] = "Nhap dung dinh dang email vd:ten08@gmail.com";
+  }elseif ($checkemail == true) {
     if($checkemail['id'] == $id){
       $erro = 0;
     }else{
       $erro = 1;
-      $emailerror = "Email da ton tai";
+      $_SESSION['emailerror'] = "Email da ton tai";
     }
+  }else{
+    $_SESSION['emailerror'] = "";
   }
+
 
   if(strlen($phone) == 0){
     $erro = 1;
-    $phoneerror = "Hay nhap so dien thoai";
-  }else if (!is_numeric($phone)) {
-    $phoneerror = "Hay nhap chu so";
+    $_SESSION['phoneerror'] = "Hay nhap so dien thoai";
   }elseif (strlen($phone) < 9 || strlen($phone) > 11) {
     $erro = 1;
-    $phoneerror = "Nhap toi thieu 10 chu so";
+    $_SESSION['phoneerror'] = "Nhap toi thieu 10 chu so";
+  }else{
+    $_SESSION['phoneerror'] = "";
   }
 
   if($address == ""){
     $erro = 1;
-    $addresserror = "Hay nhap dia chi";
+    $_SESSION['addresserror'] = "Hay nhap dia chi";
   } else if (strlen($address) > 150) {
     $erro = 1;
-    $addresserror = "Khong nhap qua 150 ky tu";
+    $_SESSION['addresserror'] = "Khong nhap qua 150 ky tu";
+  }else{
+    $_SESSION['addresserror'] = "";
   }
 
   if($status == ""){
     $erro = 1;
-    $statuserror = "Hay chon hien thi hoac khong";
+    $_SESSION['statuserror'] = "Hay chon hien thi hoac khong";
+  }else{
+    $_SESSION['statuserror'] = "";
   }
-
 
 
 
 
 
   if($erro == 1){
-    header('location:'.$adminUrl.'user/edit.php?id='.$id.'&nameerror='.$nameerror.'&emailerror='.$emailerror.'&passworderror='.$passworderror.'&phoneerror='.$phoneerror.'&addresserror='.$addresserror.'&statuserror='.$statuserror);
+    header('location:'.$adminUrl.'user/edit.php?id='.$id);
+    die;
   }
 
   
@@ -122,12 +130,27 @@
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-
+    setcookie('esuccess','true',time() + 2,"/");
  ?>
 
- <h2>EDIT Success</h2>
+  <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cart</title>
+    <?php include_once $path.$path.'_share/client.php'; ?>
+</head><!--/head-->
+<body class="text-center" >
+
+    <h2 style="margin: 350px 0;">Loading .....</h2>
+  
+</body>
  <script type="text/javascript">
   setTimeout(function(){
-    window.location.href = "<?= $adminUrl ?>user?esuccess=true";
+    window.location.href = "<?= $adminUrl ?>user";
   },1500);
  </script>
+</html>

@@ -18,27 +18,33 @@
 
 	if(strlen($name) == 0){
 		$erro = 1;
-		$nameerror = "Hãy nhập tên";
+		$_SESSION['nameerror'] = "Hãy nhập tên";
 	} elseif (strlen($name) > 50) {
 		$erro = 1;
-		$nameerror = "Không nhập quá 50 ký tự";
+		$_SESSION['nameerror'] = "Không nhập quá 50 ký tự";
+	}else{
+		$_SESSION['nameerror'] = "";
 	}
 
 	if($email == ''){
 		$erro = 1;
-		$emailerror = "hãy nhập email";
+		$_SESSION['emailerror'] = "hãy nhập email";
 	}elseif (!preg_match($patten, $email)) {
 		$erro = 1;
-		$emailerror = "Nhập đúng định dạng email vd:ten08@gmail.com";
+		$_SESSION['emailerror'] = "Nhập đúng định dạng email vd:ten08@gmail.com";
+	}else{
+		$_SESSION['emailerror'] = "";
 	}
 
 	if(strlen($content) == 0){
 		$erro = 1;
-		$contenterror = "Hãy nhập nội dung";
+		$_SESSION['contenterror'] = "Hãy nhập nội dung";
+	}else{
+		$_SESSION['contenterror'] = "";
 	}
 
 	if($erro == 1){
-		header('location:'.$siteUrl.'product-detail.php?id='.$pro_id.'&nameerror='.$nameerror.'&emailerror='.$emailerror.'&contenterror='.$contenterror);
+		header('location:'.$siteUrl.'product-detail.php?id='.$pro_id);
 		die;
 	}
 

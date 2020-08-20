@@ -30,16 +30,16 @@
 						<h1>New User Signup!</h1>
 						<form action="save-add-user.php" method="post">
 							<input type="text" name="name" placeholder="Name"/>
-							<?php if(isset($_GET['nameerror'])) : ?>
-								<span class="text-danger"><?= $_GET['nameerror'] ?></span>
+							<?php if(isset($_SESSION['nameerror'])) : ?>
+								<span class="text-danger"><?= $_SESSION['nameerror'] ?></span>
 							<?php endif ?>
 							<input type="text" name="email" placeholder="Email Address"/>
-							<?php if(isset($_GET['emailerror'])) : ?>
-								<span class="text-danger"><?= $_GET['emailerror'] ?></span>
+							<?php if(isset($_SESSION['emailerror'])) : ?>
+								<span class="text-danger"><?= $_SESSION['emailerror'] ?></span>
 							<?php endif ?>
 							<input type="password" name="password" placeholder="Password"/>
-							<?php if(isset($_GET['passworderror'])) : ?>
-								<span class="text-danger"><?= $_GET['passworderror'] ?></span>
+							<?php if(isset($_SESSION['passworderror'])) : ?>
+								<span class="text-danger"><?= $_SESSION['passworderror'] ?></span>
 							<?php endif ?>
 							<input type="hidden" name="status" value="0">
 							<input type="hidden" name="created_at" value="<?= date("Y/m/d") ?>">

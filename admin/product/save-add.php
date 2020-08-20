@@ -20,7 +20,7 @@
   $detail = $_POST['detail'];
   $scale = $_POST['scale'];
   $status = $_POST['status'];
-  $created_at = date("Y/m/d");
+  $created_at = date("Y/m/d h:i:s");
 
   $erro = 0;
   $check = check('products','name',$name);

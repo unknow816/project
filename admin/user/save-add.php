@@ -18,7 +18,7 @@
   $address = $_POST['address'];
   $gender = $_POST['gender'];
   $status = $_POST['status'];
-  $created_at = date('Y/m/d');
+  $created_at = date('Y/m/d h:i:s');
 
   $avatar = $_FILES['avatar'];
   $erro = 0;
@@ -28,58 +28,72 @@
 
   if(strlen($name) == 0){
     $erro = 1;
-    $nameerror = "Hay nhap ten";
+    $_SESSION['nameerror'] = "Hay nhap ten";
   } elseif (strlen($name) > 50) {
     $erro = 1;
-    $nameerror = "Khong nhap qua 50 ky tu";
+    $_SESSION['nameerror'] = "Khong nhap qua 50 ky tu";
+  }else{
+    $_SESSION['nameerror'] = "";
   }
 
   if($email == ''){
     $erro = 1;
-    $emailerror = "Hay nhap email";
+    $_SESSION['emailerror'] = "Hay nhap email";
   }elseif (!preg_match($patten, $email)) {
     $erro = 1;
-    $emailerror = "Nhap dung dinh dang email vd:ten08@gmail.com";
+    $_SESSION['emailerror'] = "Nhap dung dinh dang email vd:ten08@gmail.com";
   }elseif ($checkemail == true) {
     $erro = 1;
-    $emailerror = "Email da ton tai";
+    $_SESSION['emailerror'] = "Email da ton tai";
+  }else{
+    $_SESSION['emailerror'] = "";
   }
 
   if($password == ""){
     $erro = 1;
-    $passworderror = "Hay nhap mat khau";
+    $_SESSION['passworderror'] = "Hay nhap mat khau";
   }elseif (strlen($password) < 6) {
     $erro = 1;
-    $passworderror = "Nhap mat khau dai hon 6 ky tu";
+    $_SESSION['passworderror'] = "Nhap mat khau dai hon 6 ky tu";
+  }else{
+    $_SESSION['passworderror'] = "";
   }
 
   if(strlen($phone) == 0){
     $erro = 1;
-    $phoneerror = "Hay nhap so dien thoai";
+    $_SESSION['phoneerror'] = "Hay nhap so dien thoai";
   }else if (!is_numeric($phone)) {
     $erro = 1;
-    $phoneerror = "Hay nhap chu so";
+    $_SESSION['phoneerror'] = "Hay nhap chu so";
   }elseif (strlen($phone) < 9 || strlen($phone) > 11) {
     $erro = 1;
-    $phoneerror = "Nhap toi thieu 10 chu so";
+    $_SESSION['phoneerror'] = "Nhap toi thieu 10 chu so";
+  }else{
+    $_SESSION['phoneerror'] = "";
   }
 
   if($address == ""){
     $erro = 1;
-    $addresserror = "Hay nhap dia chi";
+    $_SESSION['addresserror'] = "Hay nhap dia chi";
   } else if (strlen($address) > 150) {
     $erro = 1;
-    $addresserror = "Khong nhap qua 150 ky tu";
+    $_SESSION['addresserror'] = "Khong nhap qua 150 ky tu";
+  }else{
+    $_SESSION['addresserror'] = "";
   }
 
   if($status == ""){
     $erro = 1;
-    $statuserror = "Hay chon hien thi hoac khong";
+    $_SESSION['statuserror'] = "Hay chon hien thi hoac khong";
+  }else{
+    $_SESSION['statuserror'] = "";
   }
 
   if(strlen($avatar['name']) == 0){
     $erro = 1;
-    $avatarerror = "Hay chon anh";
+    $_SESSION['avatarerror'] = "Hay chon anh";
+  }else{
+    $_SESSION['avatarerror'] = "";
   }
 
 
@@ -87,7 +101,8 @@
 
 
   if($erro == 1){
-    header('location:'.$adminUrl.'user/add.php?nameerror='.$nameerror.'&emailerror='.$emailerror.'&passworderror='.$passworderror.'&phoneerror='.$phoneerror.'&addresserror='.$addresserror.'&statuserror='.$statuserror.'&avatarerror='.$avatarerror);
+    header('location:'.$adminUrl.'user/add.php');
+    die;
   }
 
 
@@ -127,9 +142,15 @@
                         '$created_at',
                         '$filename')";
 
+
+    // echo $sql;
+    // die;
+
      try {
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+
+        setcookie('success','true',time() + 2,"/");
       } catch (Exception $e) {
         header('location:'.$adminUrl.'user?error='.$e->getMessage());
         die;
@@ -137,9 +158,24 @@
 
  ?>
 
- <h2>ADD Success</h2>
+  <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cart</title>
+    <?php include_once $path.$path.'_share/client.php'; ?>
+</head><!--/head-->
+<body class="text-center" >
+
+    <h2 style="margin: 350px 0;">Loading .....</h2>
+  
+</body>
  <script type="text/javascript">
   setTimeout(function(){
-    window.location.href = "<?= $adminUrl ?>user?success=true";
+    window.location.href = "<?= $adminUrl ?>user";
   },1500);
  </script>
+</html>
